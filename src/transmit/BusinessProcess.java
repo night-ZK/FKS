@@ -407,20 +407,7 @@ public class BusinessProcess {
 		
 		ResponesImage responesImage = null;
 		byte[] responesbyteArray = null;
-		
-//		for (Entry<String, byte[]> userFriendsImageServerCache : $getUserFriendImageServer_Cache.entrySet()) {
-//			
-//			if(userFriendsImageServerCache.getKey().equals(getUserFriendImageParameters[1])) {
-//				
-//				responesbyteArray = userFriendsImageServerCache.getValue();
-//				
-//				responesImage = new ResponesImage(
-//						userFriendsImageServerCache.getKey(), responesbyteArray);
-//				return responesImage;
-//			}
-//			
-//		}
-		
+
 		String key = getUserFriendImageParameters[1];
 		if ($getUserFriendImageServer_Cache.containsKey(key)) {
 			responesbyteArray = $getUserFriendImageServer_Cache.get(key);
@@ -451,14 +438,6 @@ public class BusinessProcess {
 		}
 		
 		String imagePath = null;
-//		for (Entry<String, String> userFriendImage : userFriendImage_Cache.entrySet()) {
-//			
-//			if(userFriendImage.getKey().equals(userID)) {
-//				imagePath = userFriendImage.getValue();
-//				break;
-//			}	
-//		}
-		
 		if (userFriendImage_Cache.containsKey(userID)) {
 			imagePath = userFriendImage_Cache.get(userID.toString());
 		}
@@ -477,7 +456,7 @@ public class BusinessProcess {
 				userFriendImage_Cache.put(userFriendsInfo.getId().toString(), imagePath);
 			}
 		}
-		
+
 		if (ObjectTool.isNull(imagePath)) {
 			return null;
 		}
@@ -539,22 +518,7 @@ public class BusinessProcess {
 		}
 		
 		MessageModel responesMessageModel = null;
-		
-//		for (Entry<String, MessageModel> friendsIDServerCache : $getFriendsIDServer_Cache.entrySet()) {
-//			
-//			if(friendsIDServerCache.getKey().equals(getFriendIDParameters[1])) {
-//				
-//				responesMessageModel = friendsIDServerCache.getValue();
-//
-//				responesMessageModel.getMessageHead().setReplyTime(System.currentTimeMillis());
-//				responesMessageModel.getMessageHead().setRequestTime(requestMessageHead.getRequestTime());
-//				responesMessageModel.getMessageHead().setRequestNO(requestMessageHead.getRequestNO());
-//				
-//				return responesMessageModel;
-//			}
-//			
-//		}
-		
+
 		String key = getFriendIDParameters[1];
 		if ($getUserFriendInfoListServer_Cache.containsKey(key)) {
 			responesMessageModel = $getUserFriendInfoListServer_Cache.get(key);

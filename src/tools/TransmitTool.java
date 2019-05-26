@@ -40,8 +40,8 @@ public class TransmitTool {
 		
 		byte[] messageModelByteArrays = baos.toByteArray();
 		
-		if(ObjectTool.isNull(oos)) oos.close();
-		if(ObjectTool.isNull(baos)) baos.close();
+		if(!ObjectTool.isNull(oos)) oos.close();
+		if(!ObjectTool.isNull(baos)) baos.close();
 		
 		return messageModelByteArrays;
 	}
@@ -58,8 +58,8 @@ public class TransmitTool {
 		ObjectInputStream ois = new ObjectInputStream(bais);
 		Object o = ois.readObject();
 		
-		if(ObjectTool.isNull(ois)) ois.close();
-		if(ObjectTool.isNull(bais)) bais.close();
+		if(!ObjectTool.isNull(ois)) ois.close();
+		if(!ObjectTool.isNull(bais)) bais.close();
 		
 		return o;
 	}

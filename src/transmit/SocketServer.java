@@ -29,8 +29,8 @@ public class SocketServer {
 	private static Map<Integer, Socket> _saveChatSocketList;
 	
 
-	InputStream is = null;
-	OutputStream os = null;
+//	InputStream is = null;
+//	OutputStream os = null;
 	
 	static {
 		try {
@@ -52,26 +52,23 @@ public class SocketServer {
 				System.out.println("some one connect..");
 				
 				Thread responseThread = new Thread() {
-					boolean isClose = false;
+//					boolean isClose = false;
 					@Override
 					public void run() {
 						try {							
 							while(true) {
-								
-								isClose = resolutionClientSocket(socket, isClose);
-								if (isClose) {
-									Thread.currentThread().interrupt();
-									break;
-								}
+								resolutionClientSocket(socket);
 							}
 						} catch (Exception e) {
-//							e.printStackTrace();
+							e.printStackTrace();
+
 						}finally {
 							try {
-								if(!ObjectTool.isNull(is)) is.close();
-								if(!ObjectTool.isNull(os)) os.close();
+//								if(!ObjectTool.isNull(is)) is.close();
+//								if(!ObjectTool.isNull(os)) os.close();
 								if(!ObjectTool.isNull(socket)) socket.close();
 								System.out.println("this.socket is close: " + socket.isClosed());
+//								ThreadConsole.useThreadPool().shutdown();
 							} catch (IOException e) {
 								e.printStackTrace();
 							}
@@ -86,83 +83,85 @@ public class SocketServer {
 			e.printStackTrace();
 		}
 	}
-	
-	private boolean resolutionClientSocket(Socket socket, boolean isClose) throws IOException, ClassNotFoundException {
-		
+
+	private void resolutionClientSocket(Socket socket) throws IOException, ClassNotFoundException {
+
 		MessageModel responesMessageModel = null;
-		is = socket.getInputStream();
-		os = socket.getOutputStream();
-		
+		InputStream is = socket.getInputStream();
+		OutputStream os = socket.getOutputStream();
+
+		SenderTools senderTools = new SenderTools(os);
+
 		MessageModel messageModel = GetterTools.streamToObject(is);
-		
+
 		if (ObjectTool.isNull(messageModel)) {
-			return isClose;
+			return;
 		}
-		
+
 		MessageHead messageHead = messageModel.getMessageHead();
 		Integer requestType = messageHead.getType();
-		
-		
+
+
 		switch (requestType) {
 		case 1:
-			
+
 			responesMessageModel = BusinessProcess.loginServer(messageModel);
-			sendMessageModel(responesMessageModel);
+			sendMessageModel(responesMessageModel, senderTools);
 			break;
 		case 2:
 			responesMessageModel = BusinessProcess.getFriendsIDServer(messageModel);
-			sendMessageModel(responesMessageModel);
-			
+			sendMessageModel(responesMessageModel, senderTools);
+
 			break;
-			
+
 		case 3:
 			responesMessageModel = BusinessProcess.getUserFriendInfoServer(messageModel);
-			sendMessageModel(responesMessageModel);
-			
+			sendMessageModel(responesMessageModel, senderTools);
+
 			break;
-			
+
 		case 4:
 			ResponesImage responesImage = BusinessProcess.getUserFriendImageServer(messageModel);
-			sendImage(responesImage);
-			
+			sendImage(responesImage, senderTools);
+
 			break;
-			
+
 		case 5:
-			
+
 			break;
-			
+
 		case 6:
 			responesMessageModel = BusinessProcess.getUserFriendInfoListServer(messageModel);
-			sendMessageModel(responesMessageModel);
+			sendMessageModel(responesMessageModel, senderTools);
 			break;
-			
+
 		default:
 			break;
 		}
-
-		return isClose;
 	}
 
-	private void sendImage(ResponesImage responesImage) throws IOException {
+	private void sendImage(ResponesImage responesImage, SenderTools senderTools) throws IOException {
 		byte[] imageByte = responesImage.getImageByte();
-		SenderTools senderTools = new SenderTools(os);
 		//responesImage.getImageDescribe() : userID
 		String imageDescribe = "imageName:" + responesImage.getImageDescribe() + " imageSize:"
 				+ imageByte.length;
 		int imageDescribeLength = imageDescribe.length();
-		
 		String responseLine = "state:200 length:" + imageDescribeLength + " type:Image" + " existJson:true";
-		
+
+		String endFlg = "Image send Done..";
+
 		senderTools.sendLine(responseLine).sendLine(imageDescribe)
-			.sendImageByteArraysForBig(imageByte).sendDone();
-		
+				.sendImageByteArrays(imageByte)
+//				.sendImageByteArraysForBig(imageByte)
+				.sendLine(endFlg).sendDone();
+
 	}
 
-	private void sendMessageModel(MessageModel responesMessageModel) throws IOException {
+	private void sendMessageModel(MessageModel responesMessageModel, SenderTools senderTools) throws IOException {
 		//响应的状态行
 		String responseLine = "state:200 length:100 type:MessageModel";
-		
-		new SenderTools(os).sendLine(responseLine)
+
+		senderTools.sendLine(responseLine)
 			.sendMessage(responesMessageModel).sendDone();
 	}
 
@@ -229,7 +228,7 @@ public class SocketServer {
 
 	/**
 	 * 通过userID获得服务器与客户端的Socket, 用于消息的转发
-	 * @param userID作为Key值
+	 * @param
 	 * @return 用于转发的Socket
 	 */
 	public static Socket getChatObjectSocket(Integer key_UserId) {

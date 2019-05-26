@@ -55,11 +55,25 @@ public class SocketServer {
 					boolean isClose = false;
 					@Override
 					public void run() {
-						while(true) {
-							
-							isClose = resolutionClientSocket(socket, isClose);
-							if (isClose) {
-								break;
+						try {							
+							while(true) {
+								
+								isClose = resolutionClientSocket(socket, isClose);
+								if (isClose) {
+									Thread.currentThread().interrupt();
+									break;
+								}
+							}
+						} catch (Exception e) {
+//							e.printStackTrace();
+						}finally {
+							try {
+								if(!ObjectTool.isNull(is)) is.close();
+								if(!ObjectTool.isNull(os)) os.close();
+								if(!ObjectTool.isNull(socket)) socket.close();
+								System.out.println("this.socket is close: " + socket.isClosed());
+							} catch (IOException e) {
+								e.printStackTrace();
 							}
 						}
 					}
@@ -73,76 +87,59 @@ public class SocketServer {
 		}
 	}
 	
-	private boolean resolutionClientSocket(Socket socket, boolean isClose) {
+	private boolean resolutionClientSocket(Socket socket, boolean isClose) throws IOException, ClassNotFoundException {
 		
 		MessageModel responesMessageModel = null;
-		try {
-
-			is = socket.getInputStream();
-			os = socket.getOutputStream();
-			
-			MessageModel messageModel = GetterTools.streamToObject(is);
-			
-			if (ObjectTool.isNull(messageModel)) {
-				return isClose;
-			}
-			
-			MessageHead messageHead = messageModel.getMessageHead();
-			Integer requestType = messageHead.getType();
-			
-			
-			switch (requestType) {
-			case 1:
-				
-				responesMessageModel = BusinessProcess.loginServer(messageModel);
-				sendMessageModel(responesMessageModel);
-				break;
-			case 2:
-				responesMessageModel = BusinessProcess.getFriendsIDServer(messageModel);
-				sendMessageModel(responesMessageModel);
-				
-				break;
-
-			case 3:
-				responesMessageModel = BusinessProcess.getUserFriendInfoServer(messageModel);
-				sendMessageModel(responesMessageModel);
-				
-				break;
-				
-			case 4:
-				ResponesImage responesImage = BusinessProcess.getUserFriendImageServer(messageModel);
-				sendImage(responesImage);
-					
-				break;
-				
-			case 5:
-				
-				break;
-					
-			default:
-				break;
-			}
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-			isClose = true;
-			Thread.currentThread().interrupt();
-			return isClose;
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-//		finally {
-//			try {
-//				
-//				if(!ObjectTool.isNull(os)) os.close();
-//				if(!ObjectTool.isNull(is)) is.close();
-//				Thread.currentThread().interrupt();
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
-//		}
+		is = socket.getInputStream();
+		os = socket.getOutputStream();
 		
-//		return responesMessageModel;
+		MessageModel messageModel = GetterTools.streamToObject(is);
+		
+		if (ObjectTool.isNull(messageModel)) {
+			return isClose;
+		}
+		
+		MessageHead messageHead = messageModel.getMessageHead();
+		Integer requestType = messageHead.getType();
+		
+		
+		switch (requestType) {
+		case 1:
+			
+			responesMessageModel = BusinessProcess.loginServer(messageModel);
+			sendMessageModel(responesMessageModel);
+			break;
+		case 2:
+			responesMessageModel = BusinessProcess.getFriendsIDServer(messageModel);
+			sendMessageModel(responesMessageModel);
+			
+			break;
+			
+		case 3:
+			responesMessageModel = BusinessProcess.getUserFriendInfoServer(messageModel);
+			sendMessageModel(responesMessageModel);
+			
+			break;
+			
+		case 4:
+			ResponesImage responesImage = BusinessProcess.getUserFriendImageServer(messageModel);
+			sendImage(responesImage);
+			
+			break;
+			
+		case 5:
+			
+			break;
+			
+		case 6:
+			responesMessageModel = BusinessProcess.getUserFriendInfoListServer(messageModel);
+			sendMessageModel(responesMessageModel);
+			break;
+			
+		default:
+			break;
+		}
+
 		return isClose;
 	}
 
@@ -158,13 +155,6 @@ public class SocketServer {
 		
 		senderTools.sendLine(responseLine).sendLine(imageDescribe)
 			.sendImageByteArraysForBig(imageByte).sendDone();
-		
-//		os.write(responseLineByte.length >> 8);
-//		os.write(responseLineByte.length);
-//		os.write(responseLineByte);
-//		
-//		os.write(imageByte);
-//		os.flush();
 		
 	}
 

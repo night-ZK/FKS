@@ -3,6 +3,7 @@ package tools;
 import java.io.IOException;
 import java.io.InputStream;
 
+import message.ChatMessages;
 import message.MessageContext;
 import message.MessageHead;
 import message.MessageModel;
@@ -27,7 +28,10 @@ public class GetterTools extends TransmitTool{
 		int length = (lengthFirst << 8) + lengthEnd;
 		
 		byte[] responseLineByte = new byte[length];
-		is.read(responseLineByte);	
+		int readLength = 0;
+		while(readLength < length) {
+			readLength += is.read(responseLineByte, readLength, length - readLength);
+		}
 		return responseLineByte;
 	}
 
@@ -126,7 +130,9 @@ public class GetterTools extends TransmitTool{
 		
 		if (!ObjectTool.isEmpty(messageHead) && messageHead.isHasMessageContext()) {
 			requestBytes = GetterTools.readByteArraysInfo(is);
-			messageContext = (MessageContext)TransmitTool.byteArraysToObject(requestBytes);
+			if (messageHead.getType() == 5){
+				messageContext = (ChatMessages)TransmitTool.byteArraysToObject(requestBytes);
+			}
 		}
 		
 		return new MessageModel(messageHead, messageContext);

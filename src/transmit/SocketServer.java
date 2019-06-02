@@ -17,6 +17,7 @@ import message.MessageContext;
 import message.MessageHead;
 import message.MessageInterface;
 import message.MessageModel;
+import tablebeans.User;
 import tablejson.ResponesImage;
 import threadmangagement.ThreadConsole;
 import tools.GetterTools;
@@ -26,8 +27,10 @@ import tools.TransmitTool;
 
 public class SocketServer {
 	private static ServerSocket _serverSocket;
+	//key : ID
+	//登录用户
 	private static Map<Integer, Socket> _saveChatSocketList;
-	
+//	SenderTools senderTools;
 
 //	InputStream is = null;
 //	OutputStream os = null;
@@ -35,8 +38,7 @@ public class SocketServer {
 	static {
 		try {
 			_serverSocket = new ServerSocket(8898);
-			_saveChatSocketList = 
-					new HashMap<Integer, Socket>();
+			_saveChatSocketList = new HashMap();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}	
@@ -51,34 +53,29 @@ public class SocketServer {
 				Socket socket = _serverSocket.accept();
 				System.out.println("some one connect..");
 				
-				Thread responseThread = new Thread() {
-//					boolean isClose = false;
-					@Override
-					public void run() {
-						try {							
-							while(true) {
-								resolutionClientSocket(socket);
-							}
-						} catch (Exception e) {
-							e.printStackTrace();
-
-						}finally {
-							try {
+				Thread responseThread = new Thread(()->{
+                    try {
+                        while(true) {
+                            resolutionClientSocket(socket);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }finally {
+                        try {
 //								if(!ObjectTool.isNull(is)) is.close();
 //								if(!ObjectTool.isNull(os)) os.close();
-								if(!ObjectTool.isNull(socket)) socket.close();
-								System.out.println("this.socket is close: " + socket.isClosed());
-//								ThreadConsole.useThreadPool().shutdown();
-							} catch (IOException e) {
-								e.printStackTrace();
-							}
-						}
-					}
-				};
+                            if(!ObjectTool.isNull(socket)) socket.close();
+                            System.out.println("this.socket is close: " + socket.isClosed());
+                            System.out.println("thread count: " + ThreadConsole.useThreadPool().getActiveCount());
+//							ThreadConsole.useThreadPool().shutdown();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }) ;
 
 				ThreadConsole.useThreadPool().execute(responseThread);
 			}
-			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -106,12 +103,23 @@ public class SocketServer {
 		case 1:
 
 			responesMessageModel = BusinessProcess.loginServer(messageModel);
+			MessageContext mc = responesMessageModel.getMessageContext();
+			//check
+			if (!ObjectTool.isNull(mc)){
+				User loginUser = (User)mc.getObject();
+				Integer idKey = loginUser.getId().intValue();
+				if(_saveChatSocketList.containsKey(idKey)){
+					//message: 该用户已在线
+				}else{
+					_saveChatSocketList.put(idKey, socket);
+				}
+
+			}
 			sendMessageModel(responesMessageModel, senderTools);
 			break;
 		case 2:
 			responesMessageModel = BusinessProcess.getFriendsIDServer(messageModel);
 			sendMessageModel(responesMessageModel, senderTools);
-
 			break;
 
 		case 3:
@@ -123,16 +131,15 @@ public class SocketServer {
 		case 4:
 			ResponesImage responesImage = BusinessProcess.getUserFriendImageServer(messageModel);
 			sendImage(responesImage, senderTools);
-
 			break;
 
 		case 5:
-
+			forwardMessage(messageModel);
 			break;
 
 		case 6:
 			responesMessageModel = BusinessProcess.getUserFriendInfoListServer(messageModel);
-			sendMessageModel(responesMessageModel, senderTools);
+			sendMessageModel(responesMessageModel,senderTools);
 			break;
 
 		default:
@@ -165,27 +172,18 @@ public class SocketServer {
 			.sendMessage(responesMessageModel).sendDone();
 	}
 
-	private void forwardMessage() throws IOException {
-		while(true) {
-			System.out.println("wait..");
-			Socket socket = _serverSocket.accept();
-			Thread forwardThread = new Thread() {
-				@Override
-				public void run() {					
-					System.out.println("some one connect..");
-					
-					ChatMessages message = getChatMessage(socket);
-					addSaveChatSocketList(message.getSenderID(), socket);
-					//TODO return message to client
-					sendChatMessage(message);
-				}
-			};
-			//
-			ThreadConsole.useThreadPool().execute(forwardThread);
+	private void forwardMessage(MessageModel messageModel) throws IOException {
+		ChatMessages chatMessage = (ChatMessages)messageModel.getMessageContext();
+		if(_saveChatSocketList.containsKey(chatMessage.getGetterID())){
+			String responseLine = "state:200 length:100 type:ChatMessage";
+			Socket forwarSocket = _saveChatSocketList.get(chatMessage.getGetterID());
+			SenderTools forwarSender = new SenderTools(forwarSocket.getOutputStream());
+			forwarSender.sendLine(responseLine)
+					.sendMessage(messageModel).sendDone();
 		}
 	}
 	
-	
+
 	/**
 	 * 获得客户端发来的聊天信息
 	 * @param socket
@@ -237,41 +235,11 @@ public class SocketServer {
 
 	/**
 	 * 以对象流的形式发送消息
-	 * @param message 
+	 * @param
 	 * @return 包含发送消息状态的信息
 	 */
-	public static MessageInterface sendChatMessage(ChatMessages message) {
-		
-		ObjectOutputStream oos = null;
-//		ErrerMessage errerMessage = null;
-		try {
-			Socket socket = getChatObjectSocket(message.getGetterID());
-			if(socket == null) {
-				throw new NullPointerException();
-			}
-			synchronized(socket) {				
-				oos = new ObjectOutputStream(socket.getOutputStream());
-				oos.writeObject(message);
-				oos.flush();
-				return new ErrorMessage(true, "Success Send..");
-			}
-		} catch (NullPointerException e) {
-			e.printStackTrace();
-			return new ErrorMessage(false, "user is not login..");
-		} catch (IOException e) {
-			e.printStackTrace();
-			return new ErrorMessage(false, e.getMessage());
-		}finally {
-			try {
-				if (oos != null) {
-					oos.close();
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-				return new ErrorMessage(false, "oos close faile.");
-			}
-		}
-//		return errerMessage;
+	public static void sendChatMessage(MessageModel messageModel) {
+
 	}
 	
 	/**

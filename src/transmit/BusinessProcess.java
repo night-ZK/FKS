@@ -7,12 +7,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.imageio.stream.FileImageInputStream;
 
 import customexception.RequestParameterExcetion;
 import db.EvenProcess;
+import message.ChatMessages;
 import message.MessageContext;
 import message.MessageHead;
 import message.MessageModel;
@@ -80,23 +80,7 @@ public class BusinessProcess {
 		}
 		
 		MessageModel responesMessageModel = null;
-		
-//		for (Entry<String, MessageModel> loginServerCache : $loginServer_Cache.entrySet()) {
-//			
-//			if(loginServerCache.getKey().equals(loginparameters[1])) {
-//				
-//				responesMessageModel = loginServerCache.getValue();
-//				
-//				MessageHead responesMessageHead = responesMessageModel.getMessageHead();
-//				responesMessageHead.setReplyTime(System.currentTimeMillis());
-//				responesMessageHead.setRequestTime(requestMessageHead.getRequestTime());
-//				responesMessageHead.setRequestNO(requestMessageHead.getRequestNO());
-//				
-//				return responesMessageModel;
-//			}
-//			
-//		}
-		
+
 		String key = loginparameters[1];
 		if ($loginServer_Cache.containsKey(key)) {
 			responesMessageModel = $loginServer_Cache.get(key);
@@ -126,9 +110,7 @@ public class BusinessProcess {
 				return null;
 			}
 		}
-		
-//		String loginServerCacheKey = requestDescribe;
-		
+
 		User loginUser = EvenProcess.login(username, password);
 		
 		MessageHead responesMessageHead = new MessageHead();
@@ -153,8 +135,6 @@ public class BusinessProcess {
 		
 		MessageContext responesMessageContext = new MessageContext();
 		responesMessageContext.setObject(loginUser);
-		System.out.println("loginUser: " + loginUser);
-		
 		responesMessageModel = new MessageModel(responesMessageHead, responesMessageContext);
 		synchronized ($loginServer_Cache) {				
 			$loginServer_Cache.put(loginparameters[1], responesMessageModel);
@@ -558,7 +538,7 @@ public class BusinessProcess {
 		
 		for (Friend friend : friendsInfoList) {
 			if (friend.getUser_group().equalsIgnoreCase(group)) {
-				int id = friend.getId().intValue();
+				int id = friend.getFriend_id().intValue();
 				UserFriendsInformation userFriendsInfo;
 				
 				if(userFriendsInformation_Cache.containsKey(id)) {
@@ -601,5 +581,22 @@ public class BusinessProcess {
 		}
 		
 		return responesMessageModel;
+	}
+
+	public static MessageModel chatServer(MessageModel messageModel) {
+		MessageHead requestMessageHead = messageModel.getMessageHead();
+
+		String requestDescribe = requestMessageHead.getRequestDescribe();
+		System.out.println("requestDescribe: " + requestDescribe);
+
+		String[] getFriendIDParameters = requestDescribe.split("\\?");
+
+		//TODO 检测parameter中是否包含"时间戳-type:"(拆分用特殊字符?), 包含则替换相应字符
+
+		MessageContext messageContext = (ChatMessages) messageModel.getMessageContext();
+		MessageContext responseMessageContext = new ChatMessages();
+
+
+		return  null;
 	}
 }

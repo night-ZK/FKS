@@ -3,7 +3,6 @@ package transmit;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.ServerSocket;
@@ -12,18 +11,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 import message.ChatMessages;
-import message.ErrorMessage;
 import message.MessageContext;
 import message.MessageHead;
-import message.MessageInterface;
 import message.MessageModel;
 import tablebeans.User;
-import tablejson.ResponesImage;
+import tablejson.ResponseImage;
 import threadmangagement.ThreadConsole;
 import tools.GetterTools;
 import tools.ObjectTool;
 import tools.SenderTools;
-import tools.TransmitTool;
 
 public class SocketServer {
 	private static ServerSocket _serverSocket;
@@ -129,8 +125,8 @@ public class SocketServer {
 			break;
 
 		case 4:
-			ResponesImage responesImage = BusinessProcess.getUserFriendImageServer(messageModel);
-			sendImage(responesImage, senderTools);
+			ResponseImage responseImage = BusinessProcess.getUserFriendImageServer(messageModel);
+			sendImage(responseImage, senderTools);
 			break;
 
 		case 5:
@@ -147,10 +143,11 @@ public class SocketServer {
 		}
 	}
 
-	private void sendImage(ResponesImage responesImage, SenderTools senderTools) throws IOException {
-		byte[] imageByte = responesImage.getImageByte();
-		//responesImage.getImageDescribe() : userID
-		String imageDescribe = "imageName:" + responesImage.getImageDescribe() + " imageSize:"
+	@SuppressWarnings("Duplicates")
+	private void sendImage(ResponseImage responseImage, SenderTools senderTools) throws IOException {
+		byte[] imageByte = responseImage.getImageByte();
+		//responseImage.getImageDescribe() : userID
+		String imageDescribe = "imageName:" + responseImage.getImageDescribe() + " imageSize:"
 				+ imageByte.length;
 		int imageDescribeLength = imageDescribe.length();
 		String responseLine = "state:200 length:" + imageDescribeLength + " type:Image" + " existJson:true";
@@ -172,6 +169,7 @@ public class SocketServer {
 			.sendMessage(responesMessageModel).sendDone();
 	}
 
+	@SuppressWarnings("Duplicates")
 	private void forwardMessage(MessageModel messageModel) throws IOException {
 		ChatMessages chatMessage = (ChatMessages)messageModel.getMessageContext();
 		if(_saveChatSocketList.containsKey(chatMessage.getGetterID())){

@@ -2,16 +2,16 @@ package tablejson;
 
 import java.util.Arrays;
 
-import row.RowSupper;
+import message.MessageInterface;
 
-public class ResponesImage extends RowSupper implements JsonInterface{
+public class ResponseImage implements MessageInterface {
 
 	private static final long serialVersionUID = 1L;
 	
 	private String imageDescribe;
 	private byte[] imageByte;
 	
-	public ResponesImage(String imageDescribe, byte[] imageByte) {
+	public ResponseImage(String imageDescribe, byte[] imageByte) {
 		this.imageDescribe = imageDescribe;
 		this.imageByte = imageByte;
 	}
@@ -29,7 +29,7 @@ public class ResponesImage extends RowSupper implements JsonInterface{
 	}
 	@Override
 	public String toString() {
-		return "ResponesImage [imageDescribe=" + imageDescribe + ", imageByte=" + Arrays.toString(imageByte) + "]";
+		return "ResponseImage [imageDescribe=" + imageDescribe + ", imageByte=" + Arrays.toString(imageByte) + "]";
 	}
 
 }

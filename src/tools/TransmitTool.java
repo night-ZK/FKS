@@ -6,13 +6,21 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.lang.reflect.Field;
+import java.nio.ByteBuffer;
+import java.nio.channels.SocketChannel;
 import java.util.HashMap;
 import java.util.Map;
 
 import customexception.RequestParameterExcetion;
-import message.MessageHead;
+import message.*;
+import tablejson.ResponseImage;
 
 public class TransmitTool {
+
+	private static String charsetName;
+	static{
+		 charsetName = "UTF-8";
+	}
 	/**
 	 * 获取requestMap的key值
 	 * @param messageHead
@@ -48,7 +56,7 @@ public class TransmitTool {
 	
 	/**
 	 * byte[]转对象
-	 * @param o
+	 * @param bs
 	 * @return
 	 * @throws IOException
 	 * @throws ClassNotFoundException 
@@ -77,7 +85,7 @@ public class TransmitTool {
 	
 	/**
 	 * json转对象
-	 * @param ob
+	 * @param json
 	 * @return
 	 */
 	public static Object jsonToObject(String json) {
@@ -117,7 +125,7 @@ public class TransmitTool {
 
 	/**
 	 * 设置对象属性
-	 * @param o
+	 * @param cl
 	 * @param subJson
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
@@ -150,7 +158,7 @@ public class TransmitTool {
 
 	/**
 	 * 获得表对象中的所有字段, 通过“,”拆分, 并返回一个String类型的数组
-	 * @param row 表对象
+	 * @param subJson 表对象
 	 * @return 字段数组
 	 */
 	public static String[] getFields(String subJson){
@@ -178,5 +186,76 @@ public class TransmitTool {
 		return parametersMap;
 	}
 
-	
+	public static ByteBuffer sendResponseMessage(MessageInterface responseMessageModel) throws IOException {
+		String responseLine = "";
+		String imageDescribe = "";
+		boolean isImage = false;
+		byte[] responseByteArrays = null;
+		if(responseMessageModel instanceof MessageModel){
+			responseLine = "state:200 length:100 type:MessageModel";
+			responseByteArrays = ObjectToByteArrays(responseMessageModel);
+
+			if (((MessageModel) responseMessageModel).getMessageContext() instanceof ChatMessages){
+				responseLine = "state:200 length:100 type:ChatMessage";
+			}
+
+		}else if(responseMessageModel instanceof ResponseImage){
+			ResponseImage responseImage = (ResponseImage)responseMessageModel;
+			responseByteArrays = responseImage.getImageByte();
+			//responseImage.getImageDescribe() : userID
+			imageDescribe = "imageName:" + responseImage.getImageDescribe() + " imageSize:"
+					+ responseByteArrays.length;
+			int imageDescribeLength = imageDescribe.length();
+			responseLine = "state:200 length:" + imageDescribeLength + " type:Image" + " existJson:true";
+			isImage = true;
+		}
+
+		byte[] responseLineByte = responseLine.getBytes(charsetName);
+		byte[] imageDescribeByte = imageDescribe.getBytes(charsetName);
+		int byteBufferLength = responseLineByte.length + 4;
+		if (isImage) {
+			byteBufferLength += imageDescribeByte.length + 4 + responseByteArrays.length;
+		}else{
+			byteBufferLength += responseByteArrays.length + 4;
+		}
+		ByteBuffer responseByteBuffer = ByteBuffer.allocate(byteBufferLength);
+		sendRule(responseByteBuffer, responseLineByte);
+
+		if(!ObjectTool.isNull(imageDescribe) && isImage) {
+			sendRule(responseByteBuffer, imageDescribeByte);
+			responseByteBuffer.put(responseByteArrays);
+		}else{
+			sendRule(responseByteBuffer, responseByteArrays);
+		}
+		responseByteBuffer.flip();
+		return responseByteBuffer;
+	}
+
+	/**
+	 * 流转化成byte[] -- nio用
+	 * @param socketChannel
+	 * @return
+	 * @throws IOException
+	 */
+	public static byte[] channelSteamToByteArraysForNIO(SocketChannel socketChannel) throws IOException {
+		//读取缓冲区
+		ByteBuffer byteBuffer = ByteBuffer.allocate(4);
+		//从通道中读数据到缓冲区
+		socketChannel.read(byteBuffer);
+		byteBuffer.flip();
+		int length = byteBuffer.getInt();
+		byteBuffer = ByteBuffer.allocate(length);
+		socketChannel.read(byteBuffer);
+		byteBuffer.flip();
+
+		return byteBuffer.array();
+	}
+
+	private static void sendRule(ByteBuffer responseByteBufferArrays, byte[] responseByteArrays) {
+		responseByteBufferArrays.put((byte)(responseByteArrays.length >> 24));
+		responseByteBufferArrays.put((byte)(responseByteArrays.length >> 16));
+		responseByteBufferArrays.put((byte)(responseByteArrays.length >> 8));
+		responseByteBufferArrays.put((byte)responseByteArrays.length);
+		responseByteBufferArrays.put(responseByteArrays);
+	}
 }

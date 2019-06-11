@@ -13,7 +13,7 @@ public class SendMessage {
 //	 * @return 用于转发的Socket
 //	 */
 //	public static Socket getChatObjectSocket(Integer key_UserId) {
-//		return SocketServer.get_saveChatSocketList().get(key_UserId);
+//		return SocketServerNIO.get_saveChatSocketList().get(key_UserId);
 //	}
 //	
 //	public static MessageInterface sendChatMessage(ChatMessages message) {

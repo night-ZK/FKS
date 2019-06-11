@@ -18,7 +18,7 @@ import message.MessageHead;
 import message.MessageModel;
 import tablebeans.Friend;
 import tablebeans.User;
-import tablejson.ResponesImage;
+import tablejson.ResponseImage;
 import tablejson.UserFriendsInformation;
 import tools.ObjectTool;
 import tools.TransmitTool;
@@ -370,7 +370,7 @@ public class BusinessProcess {
 		return responesMessageModel;
 	}
 
-	public static ResponesImage getUserFriendImageServer(MessageModel messageModel) {
+	public static ResponseImage getUserFriendImageServer(MessageModel messageModel) {
 		MessageHead requestessageHead = messageModel.getMessageHead();
 		
 		String requestDescribe = requestessageHead.getRequestDescribe();
@@ -385,15 +385,15 @@ public class BusinessProcess {
 			return null;
 		}
 		
-		ResponesImage responesImage = null;
+		ResponseImage responseImage = null;
 		byte[] responesbyteArray = null;
 
 		String key = getUserFriendImageParameters[1];
 		if ($getUserFriendImageServer_Cache.containsKey(key)) {
 			responesbyteArray = $getUserFriendImageServer_Cache.get(key);
 			
-			responesImage = new ResponesImage(key, responesbyteArray);
-			return responesImage;
+			responseImage = new ResponseImage(key, responesbyteArray);
+			return responseImage;
 		}
 		
 		
@@ -478,8 +478,8 @@ public class BusinessProcess {
 			}
 		}
 		
-		responesImage = new ResponesImage(userID, imageByte);
-		return responesImage;
+		responseImage = new ResponseImage(userID, imageByte);
+		return responseImage;
 	}
 
 	public static MessageModel getUserFriendInfoListServer(MessageModel messageModel) {

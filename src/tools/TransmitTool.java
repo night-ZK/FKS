@@ -240,11 +240,11 @@ public class TransmitTool {
 	public static byte[] channelSteamToByteArraysForNIO(SocketChannel socketChannel) throws IOException {
 		//读取缓冲区
 		ByteBuffer byteBuffer = ByteBuffer.allocate(4);
-		//从通道中读数据到缓冲区
-		socketChannel.read(byteBuffer);
-		byteBuffer.flip();
-		int length = byteBuffer.getInt();
-		byteBuffer = ByteBuffer.allocate(length);
+        //从通道中读数据到缓冲区
+        socketChannel.read(byteBuffer);
+        byteBuffer.flip();
+        int length = byteBuffer.getInt();
+        byteBuffer = ByteBuffer.allocate(length);
 		socketChannel.read(byteBuffer);
 		byteBuffer.flip();
 
@@ -258,4 +258,24 @@ public class TransmitTool {
 		responseByteBufferArrays.put((byte)responseByteArrays.length);
 		responseByteBufferArrays.put(responseByteArrays);
 	}
+
+    /**
+     * 通过发送规则发送
+     * 规则: 4个字节作为消息长度
+     * @param responseModelByteArrays
+     * @return
+     */
+    public static ByteBuffer sendResponseForNIDByRule(byte[] responseModelByteArrays) {
+
+        ByteBuffer byteBuffer = ByteBuffer.allocate(responseModelByteArrays.length + 4);
+
+        byteBuffer.put((byte)(responseModelByteArrays.length >> 24));
+        byteBuffer.put((byte)(responseModelByteArrays.length >> 16));
+        byteBuffer.put((byte)(responseModelByteArrays.length >> 8));
+        byteBuffer.put((byte)responseModelByteArrays.length);
+
+        byteBuffer.put(responseModelByteArrays);
+        byteBuffer.flip();
+        return byteBuffer;
+    }
 }

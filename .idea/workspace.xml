@@ -6,19 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="54d4311b-bc37-4e1a-9d65-1bde75d8c100" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FKS.iml" beforeDir="false" afterPath="$PROJECT_DIR$/FKS.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/tablejson/ResponesImage.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/tools/GetterTools.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/tools/GetterTools.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/transmit/BusinessProcess.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/transmit/BusinessProcess.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/transmit/SocketServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/transmit/SocketServer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/FKS/tablejson/ResponesImage.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/FKS/transmit/BusinessProcess.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FKS/transmit/BusinessProcess.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/FKS/transmit/SocketServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FKS/transmit/SocketServer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tablejson/ResponseImage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tablejson/ResponseImage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FKS/transmit/transmit_nio/SocketServerNIO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FKS/transmit/transmit_nio/SocketServerNIO.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/TransmitTool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/TransmitTool.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/transmit/BusinessProcess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/transmit/BusinessProcess.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/transmit/SendMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/transmit/SendMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/transmit/SocketServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/transmit/SocketServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/transmit/transmit_nio/SocketServerNIO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/transmit/transmit_nio/SocketServerNIO.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -35,11 +25,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/transmit/SocketServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="385">
-              <caret line="79" column="8" lean-forward="true" selection-start-line="79" selection-start-column="8" selection-end-line="79" selection-end-column="8" />
-              <folding>
-                <element signature="e#4993#5024#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="1620">
+              <caret line="79" column="8" selection-start-line="79" selection-start-column="8" selection-end-line="79" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -47,14 +34,12 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/transmit/transmit_nio/SocketServerNIO.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="124">
-              <caret line="97" column="32" lean-forward="true" selection-start-line="97" selection-start-column="32" selection-end-line="97" selection-end-column="32" />
+            <state relative-caret-position="232">
+              <caret line="97" column="59" lean-forward="true" selection-start-line="97" selection-start-column="59" selection-end-line="97" selection-end-column="59" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#8710#8711#0" expanded="true" />
-                <element signature="e#8743#8744#0" expanded="true" />
-                <element signature="e#9215#9216#0" expanded="true" />
-                <element signature="e#9263#9264#0" expanded="true" />
+                <element signature="e#6000#6001#0" expanded="true" />
+                <element signature="e#6566#6567#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -63,17 +48,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="jar://G:/Java/jdk1.8.0_201/src.zip!/java/nio/channels/SocketChannel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="121">
+            <state relative-caret-position="506">
               <caret line="487" column="24" selection-start-line="487" selection-start-column="24" selection-end-line="487" selection-end-column="24" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://G:/Java/jdk1.8.0_201/src.zip!/java/lang/StringCoding.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="9207">
-              <caret line="386" column="20" selection-start-line="386" selection-start-column="20" selection-end-line="386" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -81,7 +57,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/tools/TransmitTool.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
+            <state relative-caret-position="95">
               <caret line="243" column="39" lean-forward="true" selection-start-line="243" selection-start-column="39" selection-end-line="243" selection-end-column="39" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -120,6 +96,7 @@
       <find>read</find>
       <find>getInt</find>
       <find>_serverSocket</find>
+      <find>所属key的服务器通道</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -280,11 +257,18 @@
       <workItem from="1559736091706" duration="590000" />
       <workItem from="1560170081424" duration="6283000" />
       <workItem from="1560254845360" duration="6895000" />
+      <workItem from="1560340559094" duration="2758000" />
+      <workItem from="1560426412568" duration="6845000" />
+      <workItem from="1560689356929" duration="3487000" />
+      <workItem from="1560773105367" duration="6431000" />
+      <workItem from="1560861420461" duration="2291000" />
+      <workItem from="1560945516579" duration="5482000" />
+      <workItem from="1561034262349" duration="7170000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="78979000" />
+    <option name="totallyTimeSpent" value="113443000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -375,21 +359,9 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/transmit/transmit_nio/SocketServerNIO.java</url>
-          <line>162</line>
+          <line>183</line>
           <properties />
           <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/transmit/transmit_nio/SocketServerNIO.java</url>
-          <line>117</line>
-          <properties />
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/transmit/transmit_nio/SocketServerNIO.java</url>
-          <line>122</line>
-          <properties />
-          <option name="timeStamp" value="9" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -533,6 +505,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/transmit/BusinessProcess.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="163">
+          <caret line="65" column="31" selection-start-line="65" selection-start-column="31" selection-end-line="65" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/message/MessageModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/transmit/SocketServer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1620">
+          <caret line="79" column="8" selection-start-line="79" selection-start-column="8" selection-end-line="79" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
     <entry file="jar://G:/Java/jdk1.8.0_201/src.zip!/java/lang/StringCoding.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="9207">
@@ -554,43 +550,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/transmit/BusinessProcess.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="163">
-          <caret line="65" column="31" selection-start-line="65" selection-start-column="31" selection-end-line="65" selection-end-column="31" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/message/MessageModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://G:/Java/jdk1.8.0_201/src.zip!/java/nio/channels/SocketChannel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
+        <state relative-caret-position="506">
           <caret line="487" column="24" selection-start-line="487" selection-start-column="24" selection-end-line="487" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/transmit/SocketServer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="385">
-          <caret line="79" column="8" lean-forward="true" selection-start-line="79" selection-start-column="8" selection-end-line="79" selection-end-column="8" />
-          <folding>
-            <element signature="e#4993#5024#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/tools/TransmitTool.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
+        <state relative-caret-position="95">
           <caret line="243" column="39" lean-forward="true" selection-start-line="243" selection-start-column="39" selection-end-line="243" selection-end-column="39" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -600,14 +569,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/transmit/transmit_nio/SocketServerNIO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="124">
-          <caret line="97" column="32" lean-forward="true" selection-start-line="97" selection-start-column="32" selection-end-line="97" selection-end-column="32" />
+        <state relative-caret-position="232">
+          <caret line="97" column="59" lean-forward="true" selection-start-line="97" selection-start-column="59" selection-end-line="97" selection-end-column="59" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#8710#8711#0" expanded="true" />
-            <element signature="e#8743#8744#0" expanded="true" />
-            <element signature="e#9215#9216#0" expanded="true" />
-            <element signature="e#9263#9264#0" expanded="true" />
+            <element signature="e#6000#6001#0" expanded="true" />
+            <element signature="e#6566#6567#0" expanded="true" />
           </folding>
         </state>
       </provider>

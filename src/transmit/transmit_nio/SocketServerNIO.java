@@ -80,7 +80,17 @@ public class SocketServerNIO {
 						SocketChannel socketChannel = (SocketChannel)selectionKey.channel();
 
 						//缓冲区转byte[]
-						byte[] byteArrays = TransmitTool.channelSteamToByteArraysForNIO(socketChannel);
+                        byte[] byteArrays = null;
+                        try{
+                            byteArrays= TransmitTool.channelSteamToByteArraysForNIO(socketChannel);
+                        }catch (IOException e){
+//                            e.printStackTrace();
+                            selectionKey.cancel();
+                            socketChannel.socket().close();
+                            socketChannel.close();
+                        }
+                        if (ObjectTool.isNull(byteArrays)) continue;
+
 						//TODO 数组转数据
 						MessageModel requestMessageModel = (MessageModel) GetterTools.byteArraysToObject(byteArrays);
 						MessageInterface responseMessageModel = resolutionClientSocket(requestMessageModel, socketChannel);
@@ -128,7 +138,6 @@ public class SocketServerNIO {
 					}else{
 						_saveChatSocketList.put(idKey, socketChannel);
 					}
-
 				}
 				break;
 			case 2:
@@ -151,7 +160,9 @@ public class SocketServerNIO {
 			case 6:
 				responseMessageModel = BusinessProcess.getUserFriendInfoListServer(requestMessageModel);
 				break;
-
+            case 7:
+                closeSocketChannel(socketChannel);
+                break;
 			default:
 				break;
 		}
@@ -159,7 +170,17 @@ public class SocketServerNIO {
 		return responseMessageModel;
 	}
 
-	private void forwardMessage(@NotNull MessageModel messageModel) throws IOException {
+    private void closeSocketChannel(@NotNull SocketChannel socketChannel) throws IOException {
+	    String line = "state:close";
+        byte[] closeBytes = line.getBytes("UTF-8");
+        ByteBuffer closeBuffer = TransmitTool.sendResponseForNIDByRule(closeBytes);
+        socketChannel.write(closeBuffer);
+//        socketChannel.get
+        socketChannel.close();
+        //TODO 改变在线状态
+    }
+
+    private void forwardMessage(@NotNull MessageModel messageModel) throws IOException {
 		ByteBuffer forwardByteBuffer = TransmitTool.sendResponseMessage(messageModel);
 		ChatMessages chatMessage = (ChatMessages)messageModel.getMessageContext();
 		if(_saveChatSocketList.containsKey(chatMessage.getGetterID())){

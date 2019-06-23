@@ -133,9 +133,19 @@ public class BusinessProcess {
 		responesMessageHead.setReplyDataType(User.class);
 		responesMessageHead.setReplyDescribe("request success..");
 		
-		MessageContext responesMessageContext = new MessageContext();
-		responesMessageContext.setObject(loginUser);
-		responesMessageModel = new MessageModel(responesMessageHead, responesMessageContext);
+		MessageContext responseMessageContext = new MessageContext();
+		ArrayList loginResponseContextList = new ArrayList();
+		loginResponseContextList.add(0, loginUser);
+
+		byte[] imageByte = TransmitTool.getImageBytesByPath(loginUser.getUserImagepath());
+		loginResponseContextList.add(1, imageByte);
+
+		synchronized ($getUserFriendImageServer_Cache) {
+			$getUserFriendImageServer_Cache.put(loginUser.getId()+"", imageByte);
+		}
+
+		responseMessageContext.setObject(loginResponseContextList);
+		responesMessageModel = new MessageModel(responesMessageHead, responseMessageContext);
 		synchronized ($loginServer_Cache) {				
 			$loginServer_Cache.put(loginparameters[1], responesMessageModel);
 		}
@@ -164,22 +174,7 @@ public class BusinessProcess {
 		}
 		
 		MessageModel responesMessageModel = null;
-		
-//		for (Entry<String, MessageModel> friendsIDServerCache : $getFriendsIDServer_Cache.entrySet()) {
-//			
-//			if(friendsIDServerCache.getKey().equals(getFriendIDParameters[1])) {
-//				
-//				responesMessageModel = friendsIDServerCache.getValue();
-//
-//				responesMessageModel.getMessageHead().setReplyTime(System.currentTimeMillis());
-//				responesMessageModel.getMessageHead().setRequestTime(requestMessageHead.getRequestTime());
-//				responesMessageModel.getMessageHead().setRequestNO(requestMessageHead.getRequestNO());
-//				
-//				return responesMessageModel;
-//			}
-//			
-//		}
-		
+
 		String key = getFriendIDParameters[1];
 		if ($getFriendsIDServer_Cache.containsKey(key)) {
 			responesMessageModel = $getFriendsIDServer_Cache.get(key);
@@ -280,22 +275,6 @@ public class BusinessProcess {
 		}
 		
 		MessageModel responesMessageModel = null;
-		
-//		for (Entry<String, MessageModel> friendsIDServerCache : $getUserFriendInfoServer_Cache.entrySet()) {
-//			
-//			if(friendsIDServerCache.getKey().equals(getFriendIDParameters[1])) {
-//				
-//				responesMessageModel = friendsIDServerCache.getValue();
-//
-//				responesMessageModel.getMessageHead().setReplyTime(System.currentTimeMillis());
-//				responesMessageModel.getMessageHead().setRequestTime(requestMessageHead.getRequestTime());
-//				responesMessageModel.getMessageHead().setRequestNO(requestMessageHead.getRequestNO());
-//				
-//				return responesMessageModel;
-//			}
-//			
-//		}
-		
 
 		String key = getFriendIDParameters[1];
 		if ($getUserFriendInfoServer_Cache.containsKey(key)) {
@@ -441,43 +420,11 @@ public class BusinessProcess {
 			return null;
 		}
 		
-		byte[] imageByte = null;
-		FileImageInputStream fileImageInputStream = null;
-		ByteArrayOutputStream byteArrayOutputStream = null;
-		try {			
-			fileImageInputStream = new FileImageInputStream(new File(imagePath));
-			byteArrayOutputStream = new ByteArrayOutputStream();
-			byte[] bufByte = new byte[1024];
-			int imageByteLength = -1;
-			
-			while ((imageByteLength = fileImageInputStream.read(bufByte)) != -1) {
-				
-				byteArrayOutputStream.write(bufByte, 0, imageByteLength);
-			}
-			
-//			while ((imageByteLength = fileImageInputStream.read()) != -1) {
-//				
-//				byteArrayOutputStream.write(imageByteLength);
-//			}
-			
-			imageByte = byteArrayOutputStream.toByteArray();
-			
-			synchronized($getUserFriendImageServer_Cache) {
-				$getUserFriendImageServer_Cache.put(userID, imageByte);
-			}
-					
-		} catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				if (!ObjectTool.isNull(byteArrayOutputStream)) byteArrayOutputStream.close();
-				if (!ObjectTool.isNull(fileImageInputStream)) fileImageInputStream.close();
-			} catch (IOException e) {
-				
-				e.printStackTrace();
-			}
+		byte[] imageByte = TransmitTool.getImageBytesByPath(imagePath);
+
+		synchronized($getUserFriendImageServer_Cache) {
+			$getUserFriendImageServer_Cache.put(userID, imageByte);
 		}
-		
 		responseImage = new ResponseImage(userID, imageByte);
 		return responseImage;
 	}

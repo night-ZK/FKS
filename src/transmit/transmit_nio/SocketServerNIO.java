@@ -131,10 +131,12 @@ public class SocketServerNIO {
 				}
 				//check
 				if (!ObjectTool.isNull(mc)){
-					User loginUser = (User)mc.getObject();
+					ArrayList loginContext = (ArrayList) mc.getObject();
+					User loginUser = (User)loginContext.get(0);
 					Integer idKey = loginUser.getId().intValue();
 					if(_saveChatSocketList.containsKey(idKey)){
 						//message: 该用户已在线
+						_saveChatSocketList.replace(idKey, socketChannel);
 					}else{
 						_saveChatSocketList.put(idKey, socketChannel);
 					}

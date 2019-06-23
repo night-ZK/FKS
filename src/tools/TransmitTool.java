@@ -1,10 +1,6 @@
 package tools;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.lang.reflect.Field;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
@@ -14,6 +10,8 @@ import java.util.Map;
 import customexception.RequestParameterExcetion;
 import message.*;
 import tablejson.ResponseImage;
+
+import javax.imageio.stream.FileImageInputStream;
 
 public class TransmitTool {
 
@@ -278,4 +276,40 @@ public class TransmitTool {
         byteBuffer.flip();
         return byteBuffer;
     }
+
+    public static byte[] getImageBytesByPath(String path){
+		byte[] imageByte = null;
+		FileImageInputStream fileImageInputStream = null;
+		ByteArrayOutputStream byteArrayOutputStream = null;
+		try {
+			fileImageInputStream = new FileImageInputStream(new File(path));
+			byteArrayOutputStream = new ByteArrayOutputStream();
+			byte[] bufByte = new byte[1024];
+			int imageByteLength = -1;
+
+			while ((imageByteLength = fileImageInputStream.read(bufByte)) != -1) {
+
+				byteArrayOutputStream.write(bufByte, 0, imageByteLength);
+			}
+
+//			while ((imageByteLength = fileImageInputStream.read()) != -1) {
+//
+//				byteArrayOutputStream.write(imageByteLength);
+//			}
+
+			imageByte = byteArrayOutputStream.toByteArray();
+
+		}catch (IOException e){
+			e.printStackTrace();
+		}finally {
+			try {
+				if (!ObjectTool.isNull(byteArrayOutputStream)) byteArrayOutputStream.close();
+				if (!ObjectTool.isNull(fileImageInputStream)) fileImageInputStream.close();
+			} catch (IOException e) {
+
+				e.printStackTrace();
+			}
+		}
+		return  imageByte;
+	}
 }

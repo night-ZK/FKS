@@ -12,6 +12,7 @@ import tablebeans.Friend;
 import tablebeans.User;
 import tablejson.JsonInterface;
 import tablejson.UserFriendsInformation;
+import tools.ObjectTool;
 
 public class EvenProcess {
 	
@@ -44,7 +45,7 @@ public class EvenProcess {
 	
 	/**
 	 * 通过userid从user表中获得用户信息
-	 * @param userid 用户名ID
+	 * @param userID 用户名ID
 	 * @return
 	 */
 	public static User getUserInfo(int userID){
@@ -145,5 +146,76 @@ public class EvenProcess {
 		return arrList;
 	}
 
-	
+	/**
+	 * 更新user表数据
+	 * @param userID
+	 * @param userName
+	 * @param password
+	 * @param userNick
+	 * @param userImagePath
+	 * @param userState
+	 * @param gender
+	 * @param personLabel
+	 * @return
+	 */
+	public static boolean updateUserInfo(int userID
+			, String userName
+			, String password
+			, String userNick
+			, String userImagePath
+			, String userState
+			, int gender
+			, String personLabel){
+		//TODO privilege management
+//		User user = new User();
+		Connection conn = ExeSql.createExeSql().getConnection();
+		PreparedStatement prepareStatement = null;
+		ResultSet result = null;
+		try {
+			String sql = "update user set ";
+			ArrayList patameters = new ArrayList();
+			if (!ObjectTool.isNull(userName)) {
+				sql += "username = ? ";
+				patameters.add(1);
+			}
+			if (!ObjectTool.isNull(password)) {
+				sql += "password = ? ";
+				patameters.add(2);
+			}
+			if (!ObjectTool.isNull(userNick)) {
+				sql += "usernick = ? ";
+				patameters.add(3);
+			}
+			if (!ObjectTool.isNull(userImagePath)){
+				sql += "userimagepath = ? ";
+				patameters.add(4);
+			}
+			if (!ObjectTool.isNull(userState)) {
+				sql += "userstate = ? ";
+				patameters.add(5);
+			}
+			if (!ObjectTool.isNull(gender)){
+				sql += "gender = ? ";
+				patameters.add(6);
+			}
+			if (!ObjectTool.isNull(personLabel)){
+				sql += "personlabel = ? ";
+				patameters.add(7);
+			}
+
+			sql += "where id = ?";
+			patameters.add(8);
+
+			prepareStatement = conn.prepareStatement("update user set ");
+			prepareStatement.setInt(1, userID);
+			result = prepareStatement.executeQuery();
+//			while (result.next()) {
+//				user.setRow(result);
+//			}
+		}catch (SQLException e) {
+			System.out.println("get sql exception..");
+			e.printStackTrace();
+		}
+		return false;
+	}
 }

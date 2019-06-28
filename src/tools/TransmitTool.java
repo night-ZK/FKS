@@ -12,6 +12,7 @@ import message.*;
 import tablejson.ResponseImage;
 
 import javax.imageio.stream.FileImageInputStream;
+import javax.imageio.stream.FileImageOutputStream;
 
 public class TransmitTool {
 
@@ -311,5 +312,18 @@ public class TransmitTool {
 			}
 		}
 		return  imageByte;
+	}
+
+	protected void saveImage(byte[] iconBytes, String path) {
+
+		File iFile = new File(path);
+		try (FileImageOutputStream fio
+					 = new FileImageOutputStream(iFile)){
+
+			fio.write(iconBytes,0,iconBytes.length);
+//			fio.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

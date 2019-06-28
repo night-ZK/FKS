@@ -44,13 +44,13 @@ public class ExeSql {
 			
 			//通过dbElement动态连接数据库
 			Class.forName(dbElement.elementText("driver"));
-			_conn = DriverManager.getConnection(dbElement.elementText("url"), dbElement.elementText("name")	, dbElement.elementText("password"));
+			_conn = DriverManager.getConnection(dbElement.elementText("url"), dbElement.elementText("name"), dbElement.elementText("password"));
 			
 //			CallableStatement callableStatement = _conn.prepareCall(sql1);
 //			callableStatement.execute();
 		}
 		catch (ClassNotFoundException e) {
-			System.out.println("driver load failurd..");
+			System.out.println("driver load failed..");
 			e.printStackTrace();
 		}
 		catch (SQLException e) {

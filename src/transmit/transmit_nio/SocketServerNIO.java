@@ -3,10 +3,8 @@ package transmit.transmit_nio;
 import message.*;
 import org.jetbrains.annotations.NotNull;
 import tablebeans.User;
-import tablejson.ResponseImage;
 import tools.GetterTools;
 import tools.ObjectTool;
-import tools.SenderTools;
 import tools.TransmitTool;
 import transmit.BusinessProcess;
 
@@ -165,6 +163,9 @@ public class SocketServerNIO {
             case 7:
                 closeSocketChannel(socketChannel);
                 break;
+			case 8:
+				responseMessageModel = BusinessProcess.updateUserInformationServer(requestMessageModel);
+				break;
 			default:
 				break;
 		}

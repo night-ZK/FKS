@@ -33,10 +33,10 @@ public class ParseXML {
 			Document document = reader.read(dbXML);
 			Element root = document.getRootElement();
 			List<Element> dbElements = root.elements("db-connection");
-			for (Element dbelement : dbElements) {
+			for (Element dbElement : dbElements) {
 				
-				if (dbelement.attributeValue("id").equals(dbID)) {
-					return dbelement;
+				if (dbElement.attributeValue("id").equals(dbID)) {
+					return dbElement;
 				}
 			}
 		} catch (DocumentException e) {

@@ -16,6 +16,7 @@ import message.ChatMessages;
 import message.MessageContext;
 import message.MessageHead;
 import message.MessageModel;
+import model.UpdateInformation;
 import tablebeans.Friend;
 import tablebeans.User;
 import tablejson.ResponseImage;
@@ -113,25 +114,25 @@ public class BusinessProcess {
 
 		User loginUser = EvenProcess.login(username, password);
 		
-		MessageHead responesMessageHead = new MessageHead();
-		responesMessageHead.setReplyRequestResult(true);
-		responesMessageHead.setType(1);
-		responesMessageHead.setReplyTime(System.currentTimeMillis());
-		responesMessageHead.setRequestTime(requestMessageHead.getRequestTime());
-		responesMessageHead.setRequestNO(requestMessageHead.getRequestNO());
+		MessageHead responseMessageHead = new MessageHead();
+		responseMessageHead.setReplyRequestResult(true);
+		responseMessageHead.setType(1);
+		responseMessageHead.setReplyTime(System.currentTimeMillis());
+		responseMessageHead.setRequestTime(requestMessageHead.getRequestTime());
+		responseMessageHead.setRequestNO(requestMessageHead.getRequestNO());
 		
 		if (ObjectTool.isNull(loginUser.getId())) {
-			responesMessageHead.setReplyDataType(null);
-			responesMessageHead.setReplyDescribe("user is non-existent..");
-			responesMessageModel = new MessageModel(responesMessageHead, null);
+			responseMessageHead.setReplyDataType(null);
+			responseMessageHead.setReplyDescribe("user is non-existent..");
+			responesMessageModel = new MessageModel(responseMessageHead, null);
 			synchronized ($loginServer_Cache) {				
 				$loginServer_Cache.put(requestDescribe, responesMessageModel);
 			}
 			return responesMessageModel;
 		}
 		
-		responesMessageHead.setReplyDataType(User.class);
-		responesMessageHead.setReplyDescribe("request success..");
+		responseMessageHead.setReplyDataType(User.class);
+		responseMessageHead.setReplyDescribe("request success..");
 		
 		MessageContext responseMessageContext = new MessageContext();
 		ArrayList loginResponseContextList = new ArrayList();
@@ -145,7 +146,7 @@ public class BusinessProcess {
 		}
 
 		responseMessageContext.setObject(loginResponseContextList);
-		responesMessageModel = new MessageModel(responesMessageHead, responseMessageContext);
+		responesMessageModel = new MessageModel(responseMessageHead, responseMessageContext);
 		synchronized ($loginServer_Cache) {				
 			$loginServer_Cache.put(loginparameters[1], responesMessageModel);
 		}
@@ -365,13 +366,13 @@ public class BusinessProcess {
 		}
 		
 		ResponseImage responseImage = null;
-		byte[] responesbyteArray = null;
+		byte[] responseByteArray = null;
 
 		String key = getUserFriendImageParameters[1];
 		if ($getUserFriendImageServer_Cache.containsKey(key)) {
-			responesbyteArray = $getUserFriendImageServer_Cache.get(key);
+			responseByteArray = $getUserFriendImageServer_Cache.get(key);
 			
-			responseImage = new ResponseImage(key, responesbyteArray);
+			responseImage = new ResponseImage(key, responseByteArray);
 			return responseImage;
 		}
 		
@@ -530,20 +531,55 @@ public class BusinessProcess {
 		return responesMessageModel;
 	}
 
-	public static MessageModel chatServer(MessageModel messageModel) {
+	public static MessageModel updateUserInformationServer(MessageModel messageModel) {
 		MessageHead requestMessageHead = messageModel.getMessageHead();
 
 		String requestDescribe = requestMessageHead.getRequestDescribe();
 		System.out.println("requestDescribe: " + requestDescribe);
 
-		String[] getFriendIDParameters = requestDescribe.split("\\?");
-
-		//TODO 检测parameter中是否包含"时间戳-type:"(拆分用特殊字符?), 包含则替换相应字符
-
-		MessageContext messageContext = (ChatMessages) messageModel.getMessageContext();
-		MessageContext responseMessageContext = new ChatMessages();
+		MessageModel responseMessageModel = null;
 
 
-		return  null;
+		UpdateInformation updateInformation = (UpdateInformation) messageModel.getMessageContext().getObject();
+
+		String path = "./resources/iconCache/" +  updateInformation.getUserId() + ".png";
+
+
+
+
+		EvenProcess.
+
+		MessageHead responesMessageHead = new MessageHead();
+		responesMessageHead.setReplyRequestResult(true);
+		responesMessageHead.setReplyTime(System.currentTimeMillis());
+		responesMessageHead.setType(6);
+		responesMessageHead.setRequestTime(requestMessageHead.getRequestTime());
+		responesMessageHead.setRequestNO(requestMessageHead.getRequestNO());
+
+		if (ObjectTool.isNull(userFriendsInfoList)) {
+			responesMessageHead.setReplyDataType(null);
+			responesMessageHead.setReplyDescribe("friendsList is non-existent..");
+
+			responseMessageModel = new MessageModel(responesMessageHead, null);
+			synchronized ($getUserFriendInfoListServer_Cache) {
+				$getUserFriendInfoListServer_Cache.put(getUpdateParameters[1], responseMessageModel);
+			}
+			return responseMessageModel;
+		}
+
+		responesMessageHead.setReplyDataType(List.class);
+		responesMessageHead.setReplyDescribe("request success..");
+
+		MessageContext responesMessageContext = new MessageContext();
+		responesMessageContext.setObject(userFriendsInfoList);
+		System.out.println("friedsIDList: " + userFriendsInfoList);
+
+		responseMessageModel = new MessageModel(responesMessageHead, responesMessageContext);
+		synchronized ($getUserFriendInfoListServer_Cache) {
+			$getUserFriendInfoListServer_Cache.put(getUpdateParameters[1], responseMessageModel);
+		}
+
+		return responseMessageModel;
+
 	}
 }

@@ -170,52 +170,85 @@ public class EvenProcess {
 //		User user = new User();
 		Connection conn = ExeSql.createExeSql().getConnection();
 		PreparedStatement prepareStatement = null;
-		ResultSet result = null;
+		int result = 0;
 		try {
 			String sql = "update user set ";
-			ArrayList patameters = new ArrayList();
+			ArrayList<Integer> parameters = new ArrayList<Integer>();
 			if (!ObjectTool.isNull(userName)) {
-				sql += "username = ? ";
-				patameters.add(1);
+				sql += "username = ?,";
+				parameters.add(1);
 			}
 			if (!ObjectTool.isNull(password)) {
-				sql += "password = ? ";
-				patameters.add(2);
+				sql += "password = ?,";
+				parameters.add(2);
 			}
 			if (!ObjectTool.isNull(userNick)) {
-				sql += "usernick = ? ";
-				patameters.add(3);
+				sql += "usernick = ?,";
+				parameters.add(3);
 			}
 			if (!ObjectTool.isNull(userImagePath)){
-				sql += "userimagepath = ? ";
-				patameters.add(4);
+				sql += "userimagepath = ?,";
+				parameters.add(4);
 			}
 			if (!ObjectTool.isNull(userState)) {
-				sql += "userstate = ? ";
-				patameters.add(5);
+				sql += "userstate = ?,";
+				parameters.add(5);
 			}
 			if (!ObjectTool.isNull(gender)){
-				sql += "gender = ? ";
-				patameters.add(6);
+				sql += "gender = ?,";
+				parameters.add(6);
 			}
 			if (!ObjectTool.isNull(personLabel)){
-				sql += "personlabel = ? ";
-				patameters.add(7);
+				sql += "personlabel = ?,";
+				parameters.add(7);
 			}
 
 			sql += "where id = ?";
-			patameters.add(8);
+			parameters.add(8);
+			sql = sql.replace(",where"," where");
 
-			prepareStatement = conn.prepareStatement("update user set ");
-			prepareStatement.setInt(1, userID);
-			result = prepareStatement.executeQuery();
-//			while (result.next()) {
-//				user.setRow(result);
-//			}
+			prepareStatement = conn.prepareStatement(sql);
+
+			int i = 0;
+//			for(;i<parameters.toArray().length;i++)
+			for (Integer index : parameters) {
+				switch (index){
+					case 1:
+						prepareStatement.setString(++i,userName);
+						break;
+					case 2:
+						prepareStatement.setString(++i,password);
+						break;
+					case 3:
+						prepareStatement.setString(++i,userNick);
+						break;
+					case 4:
+						prepareStatement.setString(++i,userImagePath);
+						break;
+					case 5:
+						prepareStatement.setString(++i,userState);
+						break;
+					case 6:
+						prepareStatement.setInt(++i,gender);
+						break;
+					case 7:
+						prepareStatement.setString(++i,personLabel);
+						break;
+					case 8:
+						prepareStatement.setInt(++i,userID);
+						break;
+				}
+			}
+//			prepareStatement.setInt(1, userID);
+			result = prepareStatement.executeUpdate();
+			while (result != 1) {
+				return  false;
+			}
 		}catch (SQLException e) {
 			System.out.println("get sql exception..");
 			e.printStackTrace();
+			return  false;
 		}
-		return false;
+		return true;
 	}
 }

@@ -243,8 +243,18 @@ public class TransmitTool {
         socketChannel.read(byteBuffer);
         byteBuffer.flip();
         int length = byteBuffer.getInt();
+//        System.out.println("length:" + length);
         byteBuffer = ByteBuffer.allocate(length);
-		socketChannel.read(byteBuffer);
+		int readLength = 0;
+		ByteBuffer readByteBuffer;
+        while(readLength < length){
+			readByteBuffer = ByteBuffer.allocate(length - readLength);
+			readLength += socketChannel.read(readByteBuffer);
+			readByteBuffer.flip();
+			byteBuffer.put(readByteBuffer.array());
+		}
+//		int readLength = socketChannel.read(byteBuffer);
+//		System.out.println("readLength:" + readLength);
 		byteBuffer.flip();
 
 		return byteBuffer.array();
@@ -314,16 +324,29 @@ public class TransmitTool {
 		return  imageByte;
 	}
 
-	protected void saveImage(byte[] iconBytes, String path) {
+	public static boolean saveImage(byte[] iconBytes, String path) {
 
 		File iFile = new File(path);
-		try (FileImageOutputStream fio
-					 = new FileImageOutputStream(iFile)){
+		FileImageOutputStream fio = null;
 
+		boolean saveIsSuccess = false;
+		try {
+			if(!iFile.exists()) {
+				iFile.getParentFile().mkdirs();
+				iFile.createNewFile();
+			}
+			fio = new FileImageOutputStream(iFile);
 			fio.write(iconBytes,0,iconBytes.length);
-//			fio.close();
+			saveIsSuccess = true;
 		} catch (IOException e) {
 			e.printStackTrace();
+		}finally {
+			try {
+				fio.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
+		return  saveIsSuccess;
 	}
 }

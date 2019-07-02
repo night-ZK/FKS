@@ -6,15 +6,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="54d4311b-bc37-4e1a-9d65-1bde75d8c100" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/FKS/db/ExeSql.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FKS/db/ExeSql.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/FKS/parsefile/ParseXML.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FKS/parsefile/ParseXML.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/FKS/resources/db.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FKS/resources/db.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FKS/db/EvenProcess.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FKS/db/EvenProcess.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FKS/tools/TransmitTool.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FKS/tools/TransmitTool.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FKS/transmit/BusinessProcess.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FKS/transmit/BusinessProcess.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FKS/transmit/transmit_nio/SocketServerNIO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FKS/transmit/transmit_nio/SocketServerNIO.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/db/EvenProcess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/db/EvenProcess.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/db/ExeSql.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/db/ExeSql.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/parsefile/ParseXML.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/parsefile/ParseXML.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/db.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/db.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/UpdateInformation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/UpdateInformation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools/TransmitTool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/TransmitTool.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/transmit/BusinessProcess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/transmit/BusinessProcess.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/transmit/transmit_nio/SocketServerNIO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/transmit/transmit_nio/SocketServerNIO.java" afterDir="false" />
@@ -31,11 +29,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/transmit/transmit_nio/SocketServerNIO.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="108">
-              <caret line="124" column="63" lean-forward="true" selection-start-line="124" selection-start-column="63" selection-end-line="124" selection-end-column="63" />
+            <state relative-caret-position="138">
+              <caret line="100" column="46" lean-forward="true" selection-start-line="100" selection-start-column="46" selection-end-line="100" selection-end-column="46" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -43,11 +41,23 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/transmit/BusinessProcess.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="479">
-              <caret line="572" column="16" lean-forward="true" selection-start-line="551" selection-start-column="16" selection-end-line="572" selection-end-column="16" />
+            <state relative-caret-position="27">
+              <caret line="558" column="9" lean-forward="true" selection-start-line="558" selection-start-column="9" selection-end-line="558" selection-end-column="9" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/model/UpdateInformation.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="6" selection-start-line="6" selection-end-line="6" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -58,12 +68,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/db/EvenProcess.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="838">
-              <caret line="154" column="14" selection-start-line="154" selection-start-column="14" selection-end-line="154" selection-end-column="14" />
-              <folding>
-                <element signature="e#2666#2672#0" expanded="true" />
-                <element signature="e#3431#3439#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="1458">
+              <caret line="66" column="8" selection-start-line="66" selection-start-column="8" selection-end-line="66" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -71,8 +77,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/tools/TransmitTool.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="263">
-              <caret line="318" column="36" lean-forward="true" selection-start-line="318" selection-start-column="36" selection-end-line="318" selection-end-column="36" />
+            <state relative-caret-position="300">
+              <caret line="260" column="5" lean-forward="true" selection-start-line="260" selection-start-column="5" selection-end-line="260" selection-end-column="5" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://G:/Java/jdk1.8.0_201/src.zip!/javax/imageio/stream/FileImageOutputStream.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2484">
+              <caret line="121" column="16" selection-start-line="121" selection-start-column="16" selection-end-line="121" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -103,6 +121,7 @@
       <find>所属key的服务器通道</find>
       <find>com.mysql.cj.jdbc.Driver</find>
       <find>requestessageHead</find>
+      <find>key</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -120,10 +139,11 @@
         <option value="$PROJECT_DIR$/src/parsefile/ParseXML.java" />
         <option value="$PROJECT_DIR$/src/resources/db.xml" />
         <option value="$PROJECT_DIR$/src/db/ExeSql.java" />
+        <option value="$PROJECT_DIR$/src/model/UpdateInformation.java" />
+        <option value="$PROJECT_DIR$/src/db/EvenProcess.java" />
+        <option value="$PROJECT_DIR$/src/transmit/BusinessProcess.java" />
         <option value="$PROJECT_DIR$/src/transmit/transmit_nio/SocketServerNIO.java" />
         <option value="$PROJECT_DIR$/src/tools/TransmitTool.java" />
-        <option value="$PROJECT_DIR$/src/transmit/BusinessProcess.java" />
-        <option value="$PROJECT_DIR$/src/db/EvenProcess.java" />
       </list>
     </option>
   </component>
@@ -152,11 +172,6 @@
             <path>
               <item name="FKS" type="b2602c69:ProjectViewProjectNode" />
               <item name="FKS" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="FKS" type="b2602c69:ProjectViewProjectNode" />
-              <item name="FKS" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="FKS" type="b2602c69:ProjectViewProjectNode" />
@@ -283,11 +298,14 @@
       <workItem from="1561464667744" duration="3223000" />
       <workItem from="1561550368693" duration="2102000" />
       <workItem from="1561635432119" duration="5825000" />
+      <workItem from="1561797057000" duration="9706000" />
+      <workItem from="1561981309856" duration="9936000" />
+      <workItem from="1562069815193" duration="2210000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="140693000" />
+    <option name="totallyTimeSpent" value="162545000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -302,7 +320,7 @@
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.18305598" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.1860817" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -312,7 +330,7 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3295082" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.33770493" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.3229508" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.34918034" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32851985" />
@@ -333,7 +351,7 @@
       <window_info anchor="right" id="Palette&#9;" order="8" />
     </layout>
     <layout-to-restore>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25340393" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.1860817" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -342,8 +360,8 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3295082" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32786885" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.3622951" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.33770493" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.34918034" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32851985" />
@@ -378,23 +396,27 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/transmit/transmit_nio/SocketServerNIO.java</url>
-          <line>188</line>
+          <line>196</line>
           <properties />
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/transmit/transmit_nio/SocketServerNIO.java</url>
-          <line>126</line>
+          <url>file://$PROJECT_DIR$/src/tools/TransmitTool.java</url>
+          <line>334</line>
           <properties />
-          <option name="timeStamp" value="9" />
+          <option name="timeStamp" value="14" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/db/EvenProcess.java</url>
-          <line>75</line>
-          <properties class="db.EvenProcess" method="getUserFriendInfo">
-            <option name="EMULATED" value="true" />
-          </properties>
-          <option name="timeStamp" value="11" />
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/tools/TransmitTool.java</url>
+          <line>328</line>
+          <properties />
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/transmit/BusinessProcess.java</url>
+          <line>569</line>
+          <properties />
+          <option name="timeStamp" value="18" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -404,11 +426,17 @@
         <watch expression="dbElement.elementText(&quot;url&quot;)" language="JAVA" />
         <watch expression="dbElement.elementText(&quot;name&quot;)" language="JAVA" />
         <watch expression="dbElement.elementText(&quot;password&quot;)" language="JAVA" />
+        <watch expression="sql.replace(&quot;,where&quot;,&quot; where&quot;)" language="JAVA" />
       </configuration>
     </watches-manager>
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="watch">
+      <expression>
+        <expression-string>sql.replace(&quot;,where&quot;,&quot; where&quot;)</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>dbElement.elementText(&quot;url&quot;)</expression-string>
         <language-id>JAVA</language-id>
@@ -487,9 +515,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://G:/Java/jdk1.8.0_201/src.zip!/java/nio/ByteBuffer.java" />
     <entry file="jar://G:/Java/jdk1.8.0_201/src.zip!/java/nio/Buffer.java" />
-    <entry file="jar://G:/Java/jdk1.8.0_201/src.zip!/java/lang/String.java" />
     <entry file="file://$PROJECT_DIR$/src/transmit/SocketServer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1620">
@@ -577,6 +603,52 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/ChatModel.java" />
+    <entry file="jar://G:/Java/jdk1.8.0_201/src.zip!/java/io/File.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="27">
+          <caret line="274" column="11" selection-start-line="274" selection-start-column="11" selection-end-line="274" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://G:/Java/jdk1.8.0_201/src.zip!/java/lang/String.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="121">
+          <caret line="2237" column="18" selection-start-line="2237" selection-start-column="18" selection-end-line="2237" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://G:/Java/jdk1.8.0_201/src.zip!/java/nio/ByteBuffer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="118">
+          <caret line="578" column="31" selection-start-line="578" selection-start-column="31" selection-end-line="578" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/model/UpdateInformation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/db/EvenProcess.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1458">
+          <caret line="66" column="8" selection-start-line="66" selection-start-column="8" selection-end-line="66" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://G:/Java/jdk1.8.0_201/src.zip!/javax/imageio/stream/FileImageOutputStream.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2484">
+          <caret line="121" column="16" selection-start-line="121" selection-start-column="16" selection-end-line="121" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/parsefile/ParseXML.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1647">
@@ -584,48 +656,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/transmit/transmit_nio/SocketServerNIO.java">
+    <entry file="file://$PROJECT_DIR$/src/tools/TransmitTool.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="124" column="63" lean-forward="true" selection-start-line="124" selection-start-column="63" selection-end-line="124" selection-end-column="63" />
+        <state relative-caret-position="300">
+          <caret line="260" column="5" lean-forward="true" selection-start-line="260" selection-start-column="5" selection-end-line="260" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/tools/TransmitTool.java">
+    <entry file="file://$PROJECT_DIR$/src/transmit/BusinessProcess.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="318" column="36" lean-forward="true" selection-start-line="318" selection-start-column="36" selection-end-line="318" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/ChatModel.java">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/UpdateInformation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="16" column="114" selection-start-line="16" selection-start-column="114" selection-end-line="16" selection-end-column="114" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/db/EvenProcess.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="838">
-          <caret line="154" column="14" selection-start-line="154" selection-start-column="14" selection-end-line="154" selection-end-column="14" />
+        <state relative-caret-position="27">
+          <caret line="558" column="9" lean-forward="true" selection-start-line="558" selection-start-column="9" selection-end-line="558" selection-end-column="9" />
           <folding>
-            <element signature="e#2666#2672#0" expanded="true" />
-            <element signature="e#3431#3439#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/transmit/BusinessProcess.java">
+    <entry file="file://$PROJECT_DIR$/src/transmit/transmit_nio/SocketServerNIO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="479">
-          <caret line="572" column="16" lean-forward="true" selection-start-line="551" selection-start-column="16" selection-end-line="572" selection-end-column="16" />
+        <state relative-caret-position="138">
+          <caret line="100" column="46" lean-forward="true" selection-start-line="100" selection-start-column="46" selection-end-line="100" selection-end-column="46" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

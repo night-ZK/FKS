@@ -3,6 +3,7 @@ package transmit.transmit_nio;
 import message.*;
 import org.jetbrains.annotations.NotNull;
 import tablebeans.User;
+import threadmangagement.ThreadConsole;
 import tools.GetterTools;
 import tools.ObjectTool;
 import tools.TransmitTool;
@@ -95,9 +96,16 @@ public class SocketServerNIO {
 
 						if (ObjectTool.isNull(responseMessageModel)) continue;
 
-						//TODO 处理后回复数据
-						ByteBuffer responseByteBuffer = TransmitTool.sendResponseMessage(responseMessageModel);
-						socketChannel.write(responseByteBuffer);
+						Runnable responseThread = () ->{
+							try {
+								//TODO 处理后回复数据
+								ByteBuffer responseByteBuffer = TransmitTool.sendResponseMessage(responseMessageModel);
+								socketChannel.write(responseByteBuffer);
+							}catch (IOException e){
+								e.printStackTrace();
+							}
+						};
+						ThreadConsole.useThreadPool().execute(responseThread);
 					}
 
 				}

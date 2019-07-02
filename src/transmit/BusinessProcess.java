@@ -1,18 +1,12 @@
 package transmit;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.imageio.stream.FileImageInputStream;
-
 import customexception.RequestParameterExcetion;
 import db.EvenProcess;
-import message.ChatMessages;
 import message.MessageContext;
 import message.MessageHead;
 import message.MessageModel;
@@ -126,7 +120,7 @@ public class BusinessProcess {
 			responseMessageHead.setReplyDescribe("user is non-existent..");
 			responesMessageModel = new MessageModel(responseMessageHead, null);
 			synchronized ($loginServer_Cache) {				
-				$loginServer_Cache.put(requestDescribe, responesMessageModel);
+				$loginServer_Cache.put(key, responesMessageModel);
 			}
 			return responesMessageModel;
 		}
@@ -148,7 +142,7 @@ public class BusinessProcess {
 		responseMessageContext.setObject(loginResponseContextList);
 		responesMessageModel = new MessageModel(responseMessageHead, responseMessageContext);
 		synchronized ($loginServer_Cache) {				
-			$loginServer_Cache.put(loginparameters[1], responesMessageModel);
+			$loginServer_Cache.put(key, responesMessageModel);
 		}
 		
 		return responesMessageModel;
@@ -541,45 +535,54 @@ public class BusinessProcess {
 
 
 		UpdateInformation updateInformation = (UpdateInformation) messageModel.getMessageContext().getObject();
+		User userInfo = updateInformation.getUserInfo();
+		int id = userInfo.getId().intValue();
+		String path = "../resources/iconCache/" +  id + ".png";
 
-		String path = "./resources/iconCache/" +  updateInformation.getUserId() + ".png";
+//		Runnable saveImage = ()->{
+//		};
+//		ThreadConsole.useThreadPool().execute(saveImage);
+		boolean saveIsSuccess = TransmitTool.saveImage(updateInformation.getIconBytes(), path);
 
+		boolean isUpdateSuccess = false;
+		if (saveIsSuccess){
+			userInfo.setUserImagepath(path);
 
+			isUpdateSuccess = EvenProcess.updateUserInfo(id,
+					userInfo.getUserName(),
+					userInfo.getPassWord(),
+					userInfo.getUserNick(),
+					userInfo.getUserImagepath(),
+					userInfo.getUserState(),
+					userInfo.getGender().intValue(),
+					userInfo.getPersonLabel());
+		}
 
-
-		EvenProcess.
-
-		MessageHead responesMessageHead = new MessageHead();
-		responesMessageHead.setReplyRequestResult(true);
-		responesMessageHead.setReplyTime(System.currentTimeMillis());
-		responesMessageHead.setType(6);
-		responesMessageHead.setRequestTime(requestMessageHead.getRequestTime());
-		responesMessageHead.setRequestNO(requestMessageHead.getRequestNO());
-
-		if (ObjectTool.isNull(userFriendsInfoList)) {
-			responesMessageHead.setReplyDataType(null);
-			responesMessageHead.setReplyDescribe("friendsList is non-existent..");
-
-			responseMessageModel = new MessageModel(responesMessageHead, null);
-			synchronized ($getUserFriendInfoListServer_Cache) {
-				$getUserFriendInfoListServer_Cache.put(getUpdateParameters[1], responseMessageModel);
+		User user = null;
+		if(isUpdateSuccess){
+			user = EvenProcess.getUserInfo(id);
+			String key = "userName=" + user.getUserName() + "&" + "password=" + user.getPassWord();
+			if($loginServer_Cache.containsKey(key)){
+				$loginServer_Cache.remove(key);
 			}
-			return responseMessageModel;
 		}
 
-		responesMessageHead.setReplyDataType(List.class);
-		responesMessageHead.setReplyDescribe("request success..");
+		MessageHead responseMessageHead = new MessageHead();
+		responseMessageHead.setReplyRequestResult(true);
+		responseMessageHead.setReplyTime(System.currentTimeMillis());
+		responseMessageHead.setType(8);
+		responseMessageHead.setRequestTime(requestMessageHead.getRequestTime());
+		responseMessageHead.setRequestNO(requestMessageHead.getRequestNO());
 
-		MessageContext responesMessageContext = new MessageContext();
-		responesMessageContext.setObject(userFriendsInfoList);
-		System.out.println("friedsIDList: " + userFriendsInfoList);
+		responseMessageHead.setReplyDataType(String.class);
 
-		responseMessageModel = new MessageModel(responesMessageHead, responesMessageContext);
-		synchronized ($getUserFriendInfoListServer_Cache) {
-			$getUserFriendInfoListServer_Cache.put(getUpdateParameters[1], responseMessageModel);
-		}
+		responseMessageHead.setReplyDescribe(isUpdateSuccess ? "1" : "0");
+
+//		MessageContext responseMessageContext = new MessageContext();
+//		responseMessageContext.setObject(user);
+
+		responseMessageModel = new MessageModel(responseMessageHead, null);
 
 		return responseMessageModel;
-
 	}
 }

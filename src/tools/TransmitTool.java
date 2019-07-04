@@ -227,6 +227,7 @@ public class TransmitTool {
 			sendRule(responseByteBuffer, responseByteArrays);
 		}
 		responseByteBuffer.flip();
+		System.out.println("responseByteBuffer: " + responseByteBuffer.array().length);
 		return responseByteBuffer;
 	}
 
@@ -239,22 +240,22 @@ public class TransmitTool {
 	public static byte[] channelSteamToByteArraysForNIO(SocketChannel socketChannel) throws IOException {
 		//读取缓冲区
 		ByteBuffer byteBuffer = ByteBuffer.allocate(4);
-        //从通道中读数据到缓冲区
-        socketChannel.read(byteBuffer);
-        byteBuffer.flip();
-        int length = byteBuffer.getInt();
-//        System.out.println("length:" + length);
-        byteBuffer = ByteBuffer.allocate(length);
-		int readLength = 0;
+		//从通道中读数据到缓冲区
+		socketChannel.read(byteBuffer);
+		byteBuffer.flip();
+		int length = byteBuffer.getInt();
+		byteBuffer = ByteBuffer.allocate(length);
+		int readLengthSum = 0;
 		ByteBuffer readByteBuffer;
-        while(readLength < length){
-			readByteBuffer = ByteBuffer.allocate(length - readLength);
-			readLength += socketChannel.read(readByteBuffer);
+		while(readLengthSum < length){
+			readByteBuffer = ByteBuffer.allocate(length - readLengthSum);
+			int readLength = socketChannel.read(readByteBuffer);
 			readByteBuffer.flip();
-			byteBuffer.put(readByteBuffer.array());
+			byte[] bytes = new byte[readLength];
+			readByteBuffer.get(bytes);
+			byteBuffer.put(bytes);
+			readLengthSum += readLength;
 		}
-//		int readLength = socketChannel.read(byteBuffer);
-//		System.out.println("readLength:" + readLength);
 		byteBuffer.flip();
 
 		return byteBuffer.array();

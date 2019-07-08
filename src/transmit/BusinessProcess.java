@@ -585,4 +585,29 @@ public class BusinessProcess {
 
 		return responseMessageModel;
 	}
+
+	public static void signOut(int id){
+
+		EvenProcess.updateUserInfo(id,
+				null,
+				null,
+				null,
+				null,
+				"2",
+				null,
+				null);
+	}
+
+
+	public static void signIn(int id){
+
+		EvenProcess.updateUserInfo(id,
+				null,
+				null,
+				null,
+				null,
+				"0",
+				null,
+				null);
+	}
 }

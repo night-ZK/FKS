@@ -164,7 +164,7 @@ public class EvenProcess {
 			, String userNick
 			, String userImagePath
 			, String userState
-			, int gender
+			, Integer gender
 			, String personLabel){
 		//TODO privilege management
 //		User user = new User();

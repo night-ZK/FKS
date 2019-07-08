@@ -89,15 +89,15 @@ public class SocketServerNIO {
                             socketChannel.close();
                         }
                         if (ObjectTool.isNull(byteArrays)) continue;
-
 						//TODO 数组转数据
 						MessageModel requestMessageModel = (MessageModel) GetterTools.byteArraysToObject(byteArrays);
-						MessageInterface responseMessageModel = resolutionClientSocket(requestMessageModel, socketChannel);
 
-						if (ObjectTool.isNull(responseMessageModel)) continue;
 
 						Runnable responseThread = () ->{
 							try {
+								MessageInterface responseMessageModel = resolutionClientSocket(requestMessageModel, socketChannel);
+
+								if (ObjectTool.isNull(responseMessageModel)) return;
 								//TODO 处理后回复数据
 								ByteBuffer responseByteBuffer = TransmitTool.sendResponseMessage(responseMessageModel);
 								socketChannel.write(responseByteBuffer);
@@ -146,6 +146,10 @@ public class SocketServerNIO {
 					}else{
 						_saveChatSocketList.put(idKey, socketChannel);
 					}
+					if (!loginUser.getUserState().contains("zk")){
+						loginUser.setUserState("0");
+					}
+					BusinessProcess.signIn(idKey);
 				}
 				break;
 			case 2:
@@ -169,7 +173,7 @@ public class SocketServerNIO {
 				responseMessageModel = BusinessProcess.getUserFriendInfoListServer(requestMessageModel);
 				break;
             case 7:
-                closeSocketChannel(socketChannel);
+            	closeSocketChannel(socketChannel, requestMessageModel);
                 break;
 			case 8:
 				responseMessageModel = BusinessProcess.updateUserInformationServer(requestMessageModel);
@@ -181,14 +185,23 @@ public class SocketServerNIO {
 		return responseMessageModel;
 	}
 
-    private void closeSocketChannel(@NotNull SocketChannel socketChannel) throws IOException {
+    private void closeSocketChannel(@NotNull SocketChannel socketChannel, MessageModel requestMessageModel) throws IOException {
 	    String line = "state:close";
         byte[] closeBytes = line.getBytes("UTF-8");
         ByteBuffer closeBuffer = TransmitTool.sendResponseForNIDByRule(closeBytes);
         socketChannel.write(closeBuffer);
 //        socketChannel.get
         socketChannel.close();
-        //TODO 改变在线状态
+        String closeDescribe = requestMessageModel.getMessageHead().getRequestDescribe();
+        closeDescribe = closeDescribe.replace("/","");
+        System.out.println("closeDescribe: " + closeDescribe);
+        if (ObjectTool.isInteger(closeDescribe)){
+			Integer userId = Integer.parseInt(closeDescribe);
+			//TODO 改变在线状态
+			if(_saveChatSocketList.containsKey(userId)){
+				BusinessProcess.signOut(userId);
+			}
+		}
     }
 
     private void forwardMessage(@NotNull MessageModel messageModel) throws IOException {

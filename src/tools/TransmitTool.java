@@ -91,15 +91,17 @@ public class TransmitTool {
 	 * json转对象
 	 * @param json
 	 * @return
+	 *deprecation
 	 */
+	@SuppressWarnings("Duplicates")
 	public static Object jsonToObject(String json) {
 		String[] rs = json.split(";");
 		String className = rs[0].split(":")[1].trim();
 		try {
 			Class<?> cl = Class.forName(className);
 			Object o = cl.newInstance();
-			String[] fileds = getFields(rs[1]);		
-			for(String filed : fileds) {
+			String[] fields = getFields(rs[1]);
+			for(String filed : fields) {
 				String[] kv = filed.split("=");
 				String needField = kv[0].trim();
 				Field field = cl.getDeclaredField(needField);
@@ -129,6 +131,7 @@ public class TransmitTool {
 
 	/**
 	 * 设置对象属性
+	 * deprecation
 	 * @param cl
 	 * @param subJson
 	 * @throws IllegalAccessException 
@@ -136,6 +139,7 @@ public class TransmitTool {
 	 * @throws SecurityException 
 	 * @throws NoSuchFieldException 
 	 */
+	@SuppressWarnings("Duplicates")
 	public static Object setObject(Class<?> cl, String subJson) throws InstantiationException, IllegalAccessException, NoSuchFieldException, SecurityException {
 
 		Object o = cl.newInstance();

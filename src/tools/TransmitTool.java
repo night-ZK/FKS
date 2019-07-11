@@ -1,7 +1,10 @@
 package tools;
 
 import java.io.*;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
 import java.util.HashMap;
@@ -10,6 +13,8 @@ import java.util.Map;
 import customexception.RequestParameterExcetion;
 import message.*;
 import tablejson.ResponseImage;
+import transmit.Controller.Annotation.ControllerAnnotation;
+import transmit.Controller.Controller;
 
 import javax.imageio.stream.FileImageInputStream;
 import javax.imageio.stream.FileImageOutputStream;
@@ -350,4 +355,30 @@ public class TransmitTool {
 		}
 		return  saveIsSuccess;
 	}
+
+    public static MessageInterface getResponseByControllerClass(Class<? extends Controller> controllerClass
+			, Integer requestType
+			, SocketChannel socketChannel
+			, MessageModel requestMessageModel) {
+
+		Method[] methods = controllerClass.getDeclaredMethods();
+		for (Method m: methods) {
+			ControllerAnnotation.Controller controller
+					= m.getAnnotation(ControllerAnnotation.Controller.class);
+			if (controller.type() == requestType.intValue()){
+				try {
+					Constructor constructor = controllerClass.getConstructor(SocketChannel.class);
+					return (MessageInterface) m.invoke(
+							constructor.newInstance(socketChannel)
+							, requestMessageModel);
+				}catch (NoSuchMethodException
+						| IllegalAccessException
+						| InvocationTargetException
+						| InstantiationException e){
+					e.printStackTrace();
+				}
+			}
+		}
+		return null;
+    }
 }

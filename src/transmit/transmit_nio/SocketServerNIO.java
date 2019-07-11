@@ -1,13 +1,11 @@
 package transmit.transmit_nio;
 
 import message.*;
-import org.jetbrains.annotations.NotNull;
-import tablebeans.User;
 import threadmangagement.ThreadConsole;
 import tools.GetterTools;
 import tools.ObjectTool;
 import tools.TransmitTool;
-import transmit.BusinessProcess;
+import transmit.Controller.KChatController;
 
 import java.io.*;
 import java.net.InetSocketAddress;
@@ -66,7 +64,6 @@ public class SocketServerNIO {
 						//是连接事件
 						//所属key的服务器通道
 						ServerSocketChannel serverSocketChannel = (ServerSocketChannel) selectionKey.channel();
-
 						//与客户端的通道
 						SocketChannel socketChannel = serverSocketChannel.accept();
 						//该通道设置为非阻塞
@@ -77,6 +74,7 @@ public class SocketServerNIO {
 					}else if(selectionKey.isReadable()){
 						//发送读事件的通道
 						SocketChannel socketChannel = (SocketChannel)selectionKey.channel();
+						System.out.println("getMessage..");
 
 						//缓冲区转byte[]
                         byte[] byteArrays = null;
@@ -91,7 +89,6 @@ public class SocketServerNIO {
                         if (ObjectTool.isNull(byteArrays)) continue;
 						//TODO 数组转数据
 						MessageModel requestMessageModel = (MessageModel) GetterTools.byteArraysToObject(byteArrays);
-
 
 						Runnable responseThread = () ->{
 							try {
@@ -120,7 +117,7 @@ public class SocketServerNIO {
 
 	private MessageInterface resolutionClientSocket(MessageModel requestMessageModel, SocketChannel socketChannel) throws IOException {
 
-		MessageInterface responseMessageModel = null;
+		MessageInterface responseMessageModel;
 
 		if (ObjectTool.isNull(requestMessageModel)) {
 			return null;
@@ -128,90 +125,94 @@ public class SocketServerNIO {
 
 		MessageHead messageHead = requestMessageModel.getMessageHead();
 		Integer requestType = messageHead.getType();
-		switch (requestType) {
-			case 1:
-				responseMessageModel = BusinessProcess.loginServer(requestMessageModel);
-				MessageContext mc = null;
-				if (responseMessageModel instanceof MessageModel){
-					mc = ((MessageModel) responseMessageModel).getMessageContext();
-				}
-				//check
-				if (!ObjectTool.isNull(mc)){
-					ArrayList loginContext = (ArrayList) mc.getObject();
-					User loginUser = (User)loginContext.get(0);
-					Integer idKey = loginUser.getId().intValue();
-					if(_saveChatSocketList.containsKey(idKey)){
-						//message: 该用户已在线
-						_saveChatSocketList.replace(idKey, socketChannel);
-					}else{
-						_saveChatSocketList.put(idKey, socketChannel);
-					}
-					if (!loginUser.getUserState().contains("zk")){
-						loginUser.setUserState("0");
-					}
-					BusinessProcess.signIn(idKey);
-				}
-				break;
-			case 2:
-				responseMessageModel = BusinessProcess.getFriendsIDServer(requestMessageModel);
-				break;
+//		switch (requestType) {
+//			case 1:
+////				responseMessageModel = BusinessProcess.loginServer(requestMessageModel);
+////				MessageContext mc = null;
+////				if (responseMessageModel instanceof MessageModel){
+////					mc = ((MessageModel) responseMessageModel).getMessageContext();
+////				}
+////				//check
+////				if (!ObjectTool.isNull(mc)){
+////					ArrayList loginContext = (ArrayList) mc.getObject();
+////					User loginUser = (User)loginContext.get(0);
+////					Integer idKey = loginUser.getId().intValue();
+////					if(_saveChatSocketList.containsKey(idKey)){
+////						//message: 该用户已在线
+////						_saveChatSocketList.replace(idKey, socketChannel);
+////					}else{
+////						_saveChatSocketList.put(idKey, socketChannel);
+////					}
+////					if (!loginUser.getUserState().contains("zk")){
+////						loginUser.setUserState("0");
+////					}
+////					BusinessProcess.signIn(idKey);
+////				}
+//				break;
+//			case 2:
+////				responseMessageModel = BusinessProcess.getFriendsIDServer(requestMessageModel);
+//				break;
+//
+//			case 3:
+////				responseMessageModel = BusinessProcess.getUserFriendInfoServer(requestMessageModel);
+//				break;
+//
+//			case 4:
+////				responseMessageModel = BusinessProcess.getUserFriendImageServer(requestMessageModel);
+//				break;
+//
+//			case 5:
+////				forwardMessage(requestMessageModel);
+//				break;
+//
+//			case 6:
+////				responseMessageModel = BusinessProcess.getUserFriendInfoListServer(requestMessageModel);
+//				break;
+//            case 7:
+////            	closeSocketChannel(socketChannel, requestMessageModel);
+//                break;
+//			case 8:
+////				responseMessageModel = BusinessProcess.updateUserInformationServer(requestMessageModel);
+//				break;
+//			default:
+//				break;
+//		}
 
-			case 3:
-				responseMessageModel = BusinessProcess.getUserFriendInfoServer(requestMessageModel);
-
-				break;
-
-			case 4:
-				responseMessageModel = BusinessProcess.getUserFriendImageServer(requestMessageModel);
-				break;
-
-			case 5:
-				forwardMessage(requestMessageModel);
-				break;
-
-			case 6:
-				responseMessageModel = BusinessProcess.getUserFriendInfoListServer(requestMessageModel);
-				break;
-            case 7:
-            	closeSocketChannel(socketChannel, requestMessageModel);
-                break;
-			case 8:
-				responseMessageModel = BusinessProcess.updateUserInformationServer(requestMessageModel);
-				break;
-			default:
-				break;
-		}
+		responseMessageModel = TransmitTool.getResponseByControllerClass(KChatController.class
+				, requestType
+				, socketChannel
+				, requestMessageModel);
 
 		return responseMessageModel;
 	}
 
-    private void closeSocketChannel(@NotNull SocketChannel socketChannel, MessageModel requestMessageModel) throws IOException {
-	    String line = "state:close";
-        byte[] closeBytes = line.getBytes("UTF-8");
-        ByteBuffer closeBuffer = TransmitTool.sendResponseForNIDByRule(closeBytes);
-        socketChannel.write(closeBuffer);
-//        socketChannel.get
-        socketChannel.close();
-        String closeDescribe = requestMessageModel.getMessageHead().getRequestDescribe();
-        closeDescribe = closeDescribe.replace("/","");
-        System.out.println("closeDescribe: " + closeDescribe);
-        if (ObjectTool.isInteger(closeDescribe)){
-			Integer userId = Integer.parseInt(closeDescribe);
-			//TODO 改变在线状态
-			if(_saveChatSocketList.containsKey(userId)){
-				BusinessProcess.signOut(userId);
-			}
-		}
-    }
+//    private void closeSocketChannel(@NotNull SocketChannel socketChannel, MessageModel requestMessageModel) throws IOException {
+//	    String line = "state:close";
+//        byte[] closeBytes = line.getBytes("UTF-8");
+//        ByteBuffer closeBuffer = TransmitTool.sendResponseForNIDByRule(closeBytes);
+//        socketChannel.write(closeBuffer);
+////        socketChannel.get
+//        socketChannel.close();
+//        String closeDescribe = requestMessageModel.getMessageHead().getRequestDescribe();
+//        closeDescribe = closeDescribe.replace("/","");
+//        System.out.println("closeDescribe: " + closeDescribe);
+//        if (ObjectTool.isInteger(closeDescribe)){
+//			Integer userId = Integer.parseInt(closeDescribe);
+//			//TODO 改变在线状态
+//			if(_saveChatSocketList.containsKey(userId)){
+//				BusinessProcess.signOut(userId);
+//			}
+//		}
+//    }
 
-    private void forwardMessage(@NotNull MessageModel messageModel) throws IOException {
-		ByteBuffer forwardByteBuffer = TransmitTool.sendResponseMessage(messageModel);
-		ChatMessages chatMessage = (ChatMessages)messageModel.getMessageContext();
-		if(_saveChatSocketList.containsKey(chatMessage.getGetterID())){
-			SocketChannel forwardSocketChannel = _saveChatSocketList.get(chatMessage.getGetterID());
-			forwardSocketChannel.write(forwardByteBuffer);
-		}
-	}
+//    private void forwardMessage(@NotNull MessageModel messageModel) throws IOException {
+//		ByteBuffer forwardByteBuffer = TransmitTool.sendResponseMessage(messageModel);
+//		ChatMessages chatMessage = (ChatMessages)messageModel.getMessageContext();
+//		if(_saveChatSocketList.containsKey(chatMessage.getGetterID())){
+//			SocketChannel forwardSocketChannel = _saveChatSocketList.get(chatMessage.getGetterID());
+//			forwardSocketChannel.write(forwardByteBuffer);
+//		}
+//	}
 
 
 	/**

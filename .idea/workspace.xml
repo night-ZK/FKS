@@ -7,7 +7,10 @@
   <component name="ChangeListManager">
     <list default="true" id="54d4311b-bc37-4e1a-9d65-1bde75d8c100" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/db/EvenProcess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/db/EvenProcess.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FKS/tools/TransmitTool.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FKS/tools/TransmitTool.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FKS/transmit/BusinessProcess.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FKS/transmit/BusinessProcess.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FKS/transmit/transmit_nio/SocketServerNIO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FKS/transmit/transmit_nio/SocketServerNIO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tools/TransmitTool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/TransmitTool.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/transmit/BusinessProcess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/transmit/BusinessProcess.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/transmit/transmit_nio/SocketServerNIO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/transmit/transmit_nio/SocketServerNIO.java" afterDir="false" />
     </list>
@@ -23,13 +26,39 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/transmit/transmit_nio/SocketServerNIO.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="286">
-              <caret line="150" column="21" lean-forward="true" selection-start-line="150" selection-start-column="21" selection-end-line="150" selection-end-column="21" />
+            <state relative-caret-position="157">
+              <caret line="180" column="67" lean-forward="true" selection-start-line="180" selection-start-column="67" selection-end-line="180" selection-end-column="67" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#3898#3924#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/tools/TransmitTool.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="292">
+              <caret line="371" column="52" selection-start-line="371" selection-start-column="52" selection-end-line="371" selection-end-column="52" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/transmit/Controller/KChatController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="27">
+              <caret line="14" selection-start-line="14" selection-end-line="14" />
+              <folding>
+                <element signature="method#loginController#0;class#KChatController#0" />
+                <element signature="method#closeController#0;class#KChatController#0" />
               </folding>
             </state>
           </provider>
@@ -38,8 +67,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/transmit/BusinessProcess.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="313">
-              <caret line="608" column="18" selection-start-line="608" selection-start-column="18" selection-end-line="608" selection-end-column="18" />
+            <state relative-caret-position="130">
+              <caret line="524" column="8" lean-forward="true" selection-start-line="524" selection-start-column="8" selection-end-line="524" selection-end-column="8" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -48,52 +77,13 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/model/UpdateInformation.java">
+        <entry file="file://$PROJECT_DIR$/src/transmit/Controller/Annotation/ControllerAnnotation.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="6" selection-start-line="6" selection-end-line="6" />
+            <state relative-caret-position="157">
+              <caret line="10" column="22" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/db/EvenProcess.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="236" column="27" lean-forward="true" selection-start-line="236" selection-start-column="27" selection-end-line="236" selection-end-column="27" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/tools/TransmitTool.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="81">
-              <caret line="166" lean-forward="true" selection-start-line="166" selection-end-line="166" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://G:/Java/jdk1.8.0_201/src.zip!/javax/imageio/stream/FileImageOutputStream.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2484">
-              <caret line="121" column="16" selection-start-line="121" selection-start-column="16" selection-end-line="121" selection-end-column="16" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/parsefile/ParseXML.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1647">
-              <caret line="69" column="17" selection-start-line="69" selection-start-column="17" selection-end-line="69" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -104,6 +94,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -116,6 +107,7 @@
       <find>com.mysql.cj.jdbc.Driver</find>
       <find>requestessageHead</find>
       <find>key</find>
+      <find>_saveChatSocketList</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -134,10 +126,13 @@
         <option value="$PROJECT_DIR$/src/resources/db.xml" />
         <option value="$PROJECT_DIR$/src/db/ExeSql.java" />
         <option value="$PROJECT_DIR$/src/model/UpdateInformation.java" />
-        <option value="$PROJECT_DIR$/src/tools/TransmitTool.java" />
         <option value="$PROJECT_DIR$/src/db/EvenProcess.java" />
+        <option value="$PROJECT_DIR$/src/transmit/Controller/Annotation.java" />
         <option value="$PROJECT_DIR$/src/transmit/BusinessProcess.java" />
+        <option value="$PROJECT_DIR$/src/transmit/Controller/KChatController.java" />
         <option value="$PROJECT_DIR$/src/transmit/transmit_nio/SocketServerNIO.java" />
+        <option value="$PROJECT_DIR$/src/transmit/Controller/Annotation/ControllerAnnotation.java" />
+        <option value="$PROJECT_DIR$/src/tools/TransmitTool.java" />
       </list>
     </option>
   </component>
@@ -176,14 +171,36 @@
               <item name="FKS" type="b2602c69:ProjectViewProjectNode" />
               <item name="FKS" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="model" type="462c0819:PsiDirectoryNode" />
+              <item name="transmit" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="FKS" type="b2602c69:ProjectViewProjectNode" />
+              <item name="FKS" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="transmit" type="462c0819:PsiDirectoryNode" />
+              <item name="Controller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="FKS" type="b2602c69:ProjectViewProjectNode" />
+              <item name="FKS" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="transmit" type="462c0819:PsiDirectoryNode" />
+              <item name="Controller" type="462c0819:PsiDirectoryNode" />
+              <item name="Annotation" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="FKS" type="b2602c69:ProjectViewProjectNode" />
+              <item name="FKS" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="transmit" type="462c0819:PsiDirectoryNode" />
+              <item name="transmit_nio" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -299,11 +316,14 @@
       <workItem from="1562241286868" duration="3671000" />
       <workItem from="1562327322505" duration="2128000" />
       <workItem from="1562586041636" duration="6468000" />
+      <workItem from="1562676074475" duration="1699000" />
+      <workItem from="1562759884915" duration="8732000" />
+      <workItem from="1562846159486" duration="3705000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="185535000" />
+    <option name="totallyTimeSpent" value="199671000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -318,7 +338,7 @@
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.1860817" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18910742" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -327,7 +347,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3295082" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.27213115" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.17377049" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.34918034" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -337,7 +357,7 @@
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Terminal" order="10" weight="0.32786885" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" weight="0.32851985" />
-      <window_info anchor="bottom" id="Messages" order="12" />
+      <window_info anchor="bottom" id="Messages" order="12" weight="0.3295082" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.24205749" />
@@ -394,9 +414,27 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/transmit/BusinessProcess.java</url>
-          <line>569</line>
+          <line>570</line>
           <properties />
           <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/transmit/transmit_nio/SocketServerNIO.java</url>
+          <line>119</line>
+          <properties />
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/transmit/transmit_nio/SocketServerNIO.java</url>
+          <line>90</line>
+          <properties />
+          <option name="timeStamp" value="25" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/transmit/transmit_nio/SocketServerNIO.java</url>
+          <line>75</line>
+          <properties />
+          <option name="timeStamp" value="26" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -462,7 +500,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://G:/Java/jdk1.8.0_201/src.zip!/java/lang/Integer.java" />
     <entry file="file://$PROJECT_DIR$/src/tools/ObjectTool.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="297">
@@ -485,13 +522,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
           <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/row/RowSupper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="10" column="22" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
         </state>
       </provider>
     </entry>
@@ -591,13 +621,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://G:/Java/jdk1.8.0_201/src.zip!/java/lang/String.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
-          <caret line="2237" column="18" selection-start-line="2237" selection-start-column="18" selection-end-line="2237" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://G:/Java/jdk1.8.0_201/src.zip!/java/nio/ByteBuffer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="118">
@@ -629,37 +652,99 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/tools/TransmitTool.java">
+    <entry file="file://$PROJECT_DIR$/src/transmit/Controller/Annotation.java" />
+    <entry file="file://$PROJECT_DIR$/src/row/RowMode.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="81">
-          <caret line="166" lean-forward="true" selection-start-line="166" selection-end-line="166" />
+        <state relative-caret-position="506">
+          <caret line="25" selection-start-line="25" selection-end-line="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://G:/Java/jdk1.8.0_201/src.zip!/java/lang/String.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="121">
+          <caret line="975" column="19" selection-start-line="975" selection-start-column="19" selection-end-line="975" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://G:/Java/jdk1.8.0_201/src.zip!/java/lang/Integer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="891" column="15" selection-start-line="891" selection-start-column="15" selection-end-line="891" selection-end-column="15" />
+          <folding>
+            <element signature="e#33891#33892#0" expanded="true" />
+            <element signature="e#33919#33920#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/transmit/Controller/Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="2" column="28" selection-start-line="2" selection-start-column="28" selection-end-line="2" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/row/RowSupper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="50" column="58" selection-start-line="50" selection-start-column="40" selection-end-line="50" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/db/EvenProcess.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="137" column="26" selection-start-line="137" selection-start-column="26" selection-end-line="137" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/transmit/BusinessProcess.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="130">
+          <caret line="524" column="8" lean-forward="true" selection-start-line="524" selection-start-column="8" selection-end-line="524" selection-end-column="8" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/db/EvenProcess.java">
+    <entry file="file://$PROJECT_DIR$/src/transmit/Controller/KChatController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="236" column="27" lean-forward="true" selection-start-line="236" selection-start-column="27" selection-end-line="236" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/transmit/BusinessProcess.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="313">
-          <caret line="608" column="18" selection-start-line="608" selection-start-column="18" selection-end-line="608" selection-end-column="18" />
+        <state relative-caret-position="27">
+          <caret line="14" selection-start-line="14" selection-end-line="14" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="method#loginController#0;class#KChatController#0" />
+            <element signature="method#closeController#0;class#KChatController#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/transmit/transmit_nio/SocketServerNIO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="150" column="21" lean-forward="true" selection-start-line="150" selection-start-column="21" selection-end-line="150" selection-end-column="21" />
+        <state relative-caret-position="157">
+          <caret line="180" column="67" lean-forward="true" selection-start-line="180" selection-start-column="67" selection-end-line="180" selection-end-column="67" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3898#3924#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/transmit/Controller/Annotation/ControllerAnnotation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="157">
+          <caret line="10" column="22" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tools/TransmitTool.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="292">
+          <caret line="371" column="52" selection-start-line="371" selection-start-column="52" selection-end-line="371" selection-end-column="52" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

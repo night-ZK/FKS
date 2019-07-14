@@ -50,7 +50,8 @@ public class SocketServerNIO {
 		}
 	}
 	
-	private void startSocketServer() {
+	public void startSocketServer() {
+		System.out.println("Server started..");
 		try{
 			while(true){
 				//有事件则返回, 无则阻塞
@@ -241,7 +242,7 @@ public class SocketServerNIO {
 		return SocketServerNIO.get_saveChatSocketList().get(key_UserId);
 	}
 
-	public static void main(String[] args) {
-		new SocketServerNIO().startSocketServer();
-	}
+//	public static void main(String[] args) {
+//		new SocketServerNIO().startSocketServer();
+//	}
 }

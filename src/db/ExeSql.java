@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
+import commend.MainCommend;
 import org.dom4j.Element;
 
 import parsefile.ParseXML;
@@ -15,19 +16,20 @@ import parsefile.ParseXML;
 public class ExeSql {
 	private static Connection _conn = null;
 	private static ExeSql _exeSql = null;
-	private static String _dbID = "002";
-	
-	public static String get_dbID() {
-		return _dbID;
-	}
-
-	public static void set_dbID(String dbID) {
-		_dbID = dbID;
-	}
+//	private static String _dbID = "002";
+//
+//	public static String get_dbID() {
+//		return _dbID;
+//	}
+//
+//	public static void set_dbID(String dbID) {
+//		_dbID = dbID;
+//	}
 
 	private ExeSql(){
 	}
 	static{
+		System.out.println("use dbId: " + MainCommend.get_dbId());
 //		String sql1 = "{call wpa_context.SET_CONTEXT(cc_app_cntxt_key.CO_CD,'J0001')}";
 		try {
 //			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -38,14 +40,14 @@ public class ExeSql {
 //			String url = "jdbc:mysql://localhost:3306/db_zxk?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=CONVERT_TO_NULL";
 //			String user = "name";
 //			String password = "zk";
-			
+
 			//读取db.xml获得dbElement
-			Element dbElement = ParseXML.createParseXML().getDBXMLElement(_dbID);
-			
+			Element dbElement = ParseXML.createParseXML().getDBXMLElement(MainCommend.get_dbId());
+
 			//通过dbElement动态连接数据库
 			Class.forName(dbElement.elementText("driver"));
 			_conn = DriverManager.getConnection(dbElement.elementText("url"), dbElement.elementText("name"), dbElement.elementText("password"));
-			
+
 //			CallableStatement callableStatement = _conn.prepareCall(sql1);
 //			callableStatement.execute();
 		}

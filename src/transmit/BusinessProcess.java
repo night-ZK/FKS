@@ -165,7 +165,7 @@ public class BusinessProcess {
 
 		//TODO 检测parameter中是否包含"时间戳-type:"(拆分用特殊字符?), 包含则替换相应字符
 		if (getFriendIDParameters.length != 2) {
-			System.err.println("parameter excetion..");
+			System.err.println("parameter exception..");
 			//TODO
 			return null;
 		}
@@ -216,32 +216,32 @@ public class BusinessProcess {
 			}
 		}
 		
-		MessageHead responesMessageHead = new MessageHead();
-		responesMessageHead.setReplyRequestResult(true);
-		responesMessageHead.setReplyTime(System.currentTimeMillis());
-		responesMessageHead.setType(2);
-		responesMessageHead.setRequestTime(requestMessageHead.getRequestTime());
-		responesMessageHead.setRequestNO(requestMessageHead.getRequestNO());
+		MessageHead responseMessageHead = new MessageHead();
+		responseMessageHead.setReplyRequestResult(true);
+		responseMessageHead.setReplyTime(System.currentTimeMillis());
+		responseMessageHead.setType(2);
+		responseMessageHead.setRequestTime(requestMessageHead.getRequestTime());
+		responseMessageHead.setRequestNO(requestMessageHead.getRequestNO());
 		
 		if (ObjectTool.isNull(friendsIDList)) {
-			responesMessageHead.setReplyDataType(null);
-			responesMessageHead.setReplyDescribe("friendsList is non-existent..");
+			responseMessageHead.setReplyDataType(null);
+			responseMessageHead.setReplyDescribe("friendsList is non-existent..");
 			
-			responseMessageModel = new MessageModel(responesMessageHead, null);
+			responseMessageModel = new MessageModel(responseMessageHead, null);
 			synchronized ($getFriendsIDServer_Cache) {
 				$getFriendsIDServer_Cache.put(getFriendIDParameters[1], responseMessageModel);
 			}
 			return responseMessageModel;
 		}
 		
-		responesMessageHead.setReplyDataType(List.class);
-		responesMessageHead.setReplyDescribe("request success..");
+		responseMessageHead.setReplyDataType(List.class);
+		responseMessageHead.setReplyDescribe("request success..");
 		
 		MessageContext responesMessageContext = new MessageContext();
 		responesMessageContext.setObject(friendsIDList);
 		System.out.println("friedsIDList: " + friendsIDList);
 		
-		responseMessageModel = new MessageModel(responesMessageHead, responesMessageContext);
+		responseMessageModel = new MessageModel(responseMessageHead, responesMessageContext);
 		synchronized ($getFriendsIDServer_Cache) {
 			$getFriendsIDServer_Cache.put(getFriendIDParameters[1], responseMessageModel);
 		}
@@ -329,11 +329,11 @@ public class BusinessProcess {
 		responesMessageHead.setReplyDataType(List.class);
 		responesMessageHead.setReplyDescribe("request success..");
 		
-		MessageContext responesMessageContext = new MessageContext();
-		responesMessageContext.setObject(userFriendsInfo);
+		MessageContext responseMessageContext = new MessageContext();
+		responseMessageContext.setObject(userFriendsInfo);
 		System.out.println("userFriendsInfo: " + userFriendsInfo);
 		
-		responesMessageModel = new MessageModel(responesMessageHead, responesMessageContext);
+		responesMessageModel = new MessageModel(responesMessageHead, responseMessageContext);
 		synchronized ($getUserFriendInfoServer_Cache) {
 			$getUserFriendInfoServer_Cache.put(getFriendIDParameters[1], responesMessageModel);
 
@@ -346,9 +346,9 @@ public class BusinessProcess {
 	}
 
 	public static ResponseImage getUserFriendImageServer(MessageModel messageModel) {
-		MessageHead requestessageHead = messageModel.getMessageHead();
+		MessageHead requestMessageHead = messageModel.getMessageHead();
 		
-		String requestDescribe = requestessageHead.getRequestDescribe();
+		String requestDescribe = requestMessageHead.getRequestDescribe();
 		System.out.println("requestDescribe: " + requestDescribe);
 		
 		String[] getUserFriendImageParameters = requestDescribe.split("\\?");

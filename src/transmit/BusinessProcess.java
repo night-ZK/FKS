@@ -442,16 +442,16 @@ public class BusinessProcess {
 		
 		MessageModel responseMessageModel;
 
-		String key = getFriendIDParameters[1];
-		if ($getUserFriendInfoListServer_Cache.containsKey(key)) {
-			responseMessageModel = $getUserFriendInfoListServer_Cache.get(key);
-			
-			responseMessageModel.getMessageHead().setReplyTime(System.currentTimeMillis());
-			responseMessageModel.getMessageHead().setRequestTime(requestMessageHead.getRequestTime());
-			responseMessageModel.getMessageHead().setRequestNO(requestMessageHead.getRequestNO());
-			
-			return responseMessageModel;
-		}
+//		String key = getFriendIDParameters[1];
+//		if ($getUserFriendInfoListServer_Cache.containsKey(key)) {
+//			responseMessageModel = $getUserFriendInfoListServer_Cache.get(key);
+//
+//			responseMessageModel.getMessageHead().setReplyTime(System.currentTimeMillis());
+//			responseMessageModel.getMessageHead().setRequestTime(requestMessageHead.getRequestTime());
+//			responseMessageModel.getMessageHead().setRequestNO(requestMessageHead.getRequestNO());
+//
+//			return responseMessageModel;
+//		}
 		
 		Map<String, String> parameters;
 		String userID = null;
@@ -484,11 +484,12 @@ public class BusinessProcess {
 				int id = friend.getFriend_id().intValue();
 				UserFriendsInformation userFriendsInfo;
 				
-				if(userFriendsInformation_Cache.containsKey(id)) {
-					userFriendsInfo = userFriendsInformation_Cache.get(id);
-				}else {					
-					userFriendsInfo = EvenProcess.getUserFriendInfo(id);
-				}
+//				if(userFriendsInformation_Cache.containsKey(id)) {
+//					userFriendsInfo = userFriendsInformation_Cache.get(id);
+//				}else {
+//					userFriendsInfo = EvenProcess.getUserFriendInfo(id);
+//				}
+                userFriendsInfo = EvenProcess.getUserFriendInfo(id);
 				userFriendsInfoList.add(userFriendsInfo);
 			}
 		}

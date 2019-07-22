@@ -11,23 +11,24 @@ public class MainCommend {
         Scanner scanner = new Scanner(System.in);
         scanner.useDelimiter("\n");
         System.out.print("please entry use dbID: ");
-        String dbId = scanner.next();
+        String dbId = scanner.nextLine();
+        System.out.println("use dbID: '" + dbId + "'...");
         while (!dbId.equals("001") && !dbId.equals("002")){
             System.out.println("dbID entry error... ");
             System.out.print("please entry use dbID: ");
-            dbId = scanner.next();
+            dbId = scanner.nextLine();
         }
 
         set_dbId(dbId);
         //TODO name and password
 
         System.out.println("please entry commend... ");
-        String commend = scanner.next();
+        String commend = scanner.nextLine();
         if (commend.contains("fks")){
             String[] fksCommends = commend.split(" ");
             while (fksCommends.length < 2){
                 System.out.println("please entry commend... ");
-                fksCommends = scanner.next().split(" ");
+                fksCommends = scanner.nextLine().split(" ");
                 System.out.println("length: " + fksCommends.length);
             }
 

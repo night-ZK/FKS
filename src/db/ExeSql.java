@@ -29,7 +29,7 @@ public class ExeSql {
 	private ExeSql(){
 	}
 	static{
-		System.out.println("use dbId: " + MainCommend.get_dbId());
+//		System.out.println("use dbId: " + MainCommend.get_dbId());
 //		String sql1 = "{call wpa_context.SET_CONTEXT(cc_app_cntxt_key.CO_CD,'J0001')}";
 		try {
 //			Class.forName("oracle.jdbc.driver.OracleDriver");

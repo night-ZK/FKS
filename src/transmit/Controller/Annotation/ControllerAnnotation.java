@@ -9,7 +9,7 @@ public class ControllerAnnotation {
     @Target(ElementType.METHOD)
     @Retention(RetentionPolicy.RUNTIME)
     public @interface Controller{
-        int type();
+        int type() default  -1;
         String descriptionURI() default "";
     }
 }

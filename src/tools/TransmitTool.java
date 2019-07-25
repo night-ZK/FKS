@@ -7,14 +7,19 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import customexception.RequestParameterExcetion;
 import message.*;
 import tablejson.ResponseImage;
+import tablejson.UserFriendsInformation;
+import transmit.BusinessProcess;
 import transmit.Controller.Annotation.ControllerAnnotation;
 import transmit.Controller.Controller;
+import transmit.transmit_nio.SocketServerNIO;
 
 import javax.imageio.stream.FileImageInputStream;
 import javax.imageio.stream.FileImageOutputStream;
@@ -369,6 +374,7 @@ public class TransmitTool {
 		for (Method m: methods) {
 			ControllerAnnotation.Controller controller
 					= m.getAnnotation(ControllerAnnotation.Controller.class);
+			if(controller == null) continue;
 			if (controller.type() == requestType.intValue()){
 				try {
 					Constructor constructor = controllerClass.getConstructor(SocketChannel.class);
@@ -385,4 +391,40 @@ public class TransmitTool {
 		}
 		return null;
     }
+
+    public static void sendRemind(MessageModel messageModel){
+		List<UserFriendsInformation> list = (ArrayList) messageModel.getMessageContext().getObject();
+		for (UserFriendsInformation ufInfo: list) {
+			int idKey = ufInfo.getId().intValue();
+			Map<Integer, SocketChannel>  _saveChatSocketList = SocketServerNIO.get_saveChatSocketList();
+			if (_saveChatSocketList.containsKey(idKey)){
+				SocketChannel remindSocketChannel = _saveChatSocketList.get(idKey);
+				String[] reSetRequestDesc = messageModel.getMessageHead().getRequestDescribe().split(":");
+				int requestUserId = Integer.parseInt(reSetRequestDesc[1]);
+				MessageModel remindModel = BusinessProcess.getSignInfoRemindModel("signIn", requestUserId);
+				try {
+					ByteBuffer remindByteBuffer = TransmitTool.sendResponseMessage(remindModel);
+					remindSocketChannel.write(remindByteBuffer);
+				}catch (IOException e){
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
+	public static void sendRemind(List<Integer> idList, int requestUserId, String onOrOff){
+		for (Integer idKey: idList) {
+			Map<Integer, SocketChannel>  _saveChatSocketList = SocketServerNIO.get_saveChatSocketList();
+			if (_saveChatSocketList.containsKey(idKey)){
+				SocketChannel remindSocketChannel = _saveChatSocketList.get(idKey);
+				MessageModel remindModel = BusinessProcess.getSignInfoRemindModel(onOrOff, requestUserId);
+				try {
+					ByteBuffer remindByteBuffer = TransmitTool.sendResponseMessage(remindModel);
+					remindSocketChannel.write(remindByteBuffer);
+				}catch (IOException e){
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 }

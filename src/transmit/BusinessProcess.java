@@ -237,11 +237,11 @@ public class BusinessProcess {
 		responseMessageHead.setReplyDataType(List.class);
 		responseMessageHead.setReplyDescribe("request success..");
 		
-		MessageContext responesMessageContext = new MessageContext();
-		responesMessageContext.setObject(friendsIDList);
-		System.out.println("friedsIDList: " + friendsIDList);
+		MessageContext responseMessageContext = new MessageContext();
+		responseMessageContext.setObject(friendsIDList);
+		System.out.println("friendsIDList: " + friendsIDList);
 		
-		responseMessageModel = new MessageModel(responseMessageHead, responesMessageContext);
+		responseMessageModel = new MessageModel(responseMessageHead, responseMessageContext);
 		synchronized ($getFriendsIDServer_Cache) {
 			$getFriendsIDServer_Cache.put(getFriendIDParameters[1], responseMessageModel);
 		}
@@ -500,7 +500,8 @@ public class BusinessProcess {
 		responseMessageHead.setType(6);
 		responseMessageHead.setRequestTime(requestMessageHead.getRequestTime());
 		responseMessageHead.setRequestNO(requestMessageHead.getRequestNO());
-		
+		responseMessageHead.setRequestDescribe("userId:" + userID);
+
 		if (ObjectTool.isNull(userFriendsInfoList)) {
 			responseMessageHead.setReplyDataType(null);
 			responseMessageHead.setReplyDescribe("friendsList is non-existent..");
@@ -611,5 +612,19 @@ public class BusinessProcess {
 				"0",
 				null,
 				null);
+	}
+
+	public static MessageModel getSignInfoRemindModel(String onOrOff, int id){
+		MessageHead responseMessageHead = new MessageHead();
+		responseMessageHead.setReplyRequestResult(true);
+		responseMessageHead.setReplyTime(System.currentTimeMillis());
+		responseMessageHead.setType(9);
+//		responseMessageHead.setRequestTime(requestMessageHead.getRequestTime());
+//		responseMessageHead.setRequestNO(requestMessageHead.getRequestNO());
+
+		responseMessageHead.setReplyDataType(Object.class);
+		responseMessageHead.setReplyDescribe(onOrOff + ":" + id);
+		MessageModel responseMessageModel = new MessageModel(responseMessageHead, null);
+		return responseMessageModel;
 	}
 }

@@ -5,6 +5,8 @@ import message.MessageContext;
 import message.MessageInterface;
 import message.MessageModel;
 import tablebeans.User;
+import tablejson.UserFriendsInformation;
+import threadmangagement.ThreadConsole;
 import tools.ObjectTool;
 import tools.TransmitTool;
 import transmit.BusinessProcess;
@@ -15,7 +17,9 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @SuppressWarnings("unused")
 public class KChatController implements Controller{
@@ -84,7 +88,14 @@ public class KChatController implements Controller{
 
     @ControllerAnnotation.Controller(type = 6)
     public MessageInterface getUserFriendInfoListController(MessageModel requestMessageModel){
-        return BusinessProcess.getUserFriendInfoListServer(requestMessageModel);
+        MessageModel messageModel = BusinessProcess.getUserFriendInfoListServer(requestMessageModel);
+
+        //已修改，type默认为-1
+        //不能写成这样，不然编译后放射取得方法注释时会取到null
+        Runnable runnable = () -> TransmitTool.sendRemind(messageModel);
+
+        ThreadConsole.useThreadPool().execute(runnable);
+        return messageModel;
     }
 
     @ControllerAnnotation.Controller(type = 7)
@@ -94,7 +105,6 @@ public class KChatController implements Controller{
             byte[] closeBytes = line.getBytes("UTF-8");
             ByteBuffer closeBuffer = TransmitTool.sendResponseForNIDByRule(closeBytes);
             currentSocketChannel.write(closeBuffer);
-//        socketChannel.get
             currentSocketChannel.close();
             String closeDescribe = requestMessageModel.getMessageHead().getRequestDescribe();
             closeDescribe = closeDescribe.replace("/","");
@@ -105,6 +115,16 @@ public class KChatController implements Controller{
                 Map _saveChatSocketList = SocketServerNIO.get_saveChatSocketList();
                 if(_saveChatSocketList.containsKey(userId)){
                     BusinessProcess.signOut(userId);
+                    synchronized (_saveChatSocketList){
+                        _saveChatSocketList.remove(userId);
+                    }
+                    //已修改，type默认为-1
+                    //不能写成这样，不然编译后放射取得方法注释时会取到null
+                    Runnable run = () ->{
+                        ArrayList<Integer> friendsId = (ArrayList<Integer>) requestMessageModel.getMessageContext().getObject();
+                        TransmitTool.sendRemind(friendsId, userId, "signOut");
+                    };
+                    ThreadConsole.useThreadPool().execute(run);
                 }
             }
         }catch (IOException e){
@@ -117,4 +137,5 @@ public class KChatController implements Controller{
     public MessageInterface updateUserInformationController(MessageModel requestMessageModel){
         return BusinessProcess.updateUserInformationServer(requestMessageModel);
     }
+
 }

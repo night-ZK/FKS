@@ -138,7 +138,6 @@ public class EvenProcess {
 				friend.setRow(result);
 				arrList.add(friend);
 			}
-			System.gc();
 		}catch (SQLException e) {
 //			throw new SQLException("sql exception..");
 			e.printStackTrace();

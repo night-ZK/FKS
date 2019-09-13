@@ -9,6 +9,7 @@ import transmit.Controller.KChatController;
 
 import java.io.*;
 import java.net.InetSocketAddress;
+import java.nio.BufferUnderflowException;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
@@ -81,11 +82,14 @@ public class SocketServerNIO {
                         byte[] byteArrays = null;
                         try{
                             byteArrays= TransmitTool.channelSteamToByteArraysForNIO(socketChannel);
-                        }catch (IOException e){
+                        }
+                        catch (IOException|BufferUnderflowException e){
+							if(socketChannel.isOpen()){
+								selectionKey.cancel();
+								socketChannel.socket().close();
+								socketChannel.close();
+							}
 //                            e.printStackTrace();
-                            selectionKey.cancel();
-                            socketChannel.socket().close();
-                            socketChannel.close();
                         }
                         if (ObjectTool.isNull(byteArrays)) continue;
 						//TODO 数组转数据
@@ -98,7 +102,18 @@ public class SocketServerNIO {
 								if (ObjectTool.isNull(responseMessageModel)) return;
 								//TODO 处理后回复数据
 								ByteBuffer responseByteBuffer = TransmitTool.sendResponseMessage(responseMessageModel);
-								socketChannel.write(responseByteBuffer);
+								while (responseByteBuffer.hasRemaining()){
+									int writeLength = socketChannel.write(responseByteBuffer);
+									System.out.println("writeLength: " + writeLength);
+									if (writeLength < 0) throw new EOFException();
+//									if (0 == writeLength){
+//										selectionKey.interestOps(
+//												selectionKey.interestOps() | SelectionKey.OP_WRITE);
+//										selector.wakeup();
+//										break;
+//									}
+
+								}
 							}catch (IOException e){
 								e.printStackTrace();
 							}
